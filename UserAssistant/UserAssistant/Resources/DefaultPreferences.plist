@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>LogoPath</key>
+	<string>/Library/Management/Schibsted/schibsted.icns</string>
+	<key>ContactHidden</key>
+	<true/>
+	<key>ContactMessage</key>
+	<string>For further information, please contact Servicedesk.</string>
+	<key>ContactMethods</key>
+	<array>
+		<string>+46 8 725 2200</string>
+		<string>servicedesk@schibsted.se</string>
+		<string>#etech-support</string>
+	</array>
+</dict>
+</plist>
