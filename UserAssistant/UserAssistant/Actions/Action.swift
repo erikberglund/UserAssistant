@@ -31,7 +31,7 @@ class Action {
     // Conditions
     var conditions: Conditions?
     var conditionsAction = ConditionsAction.message
-    var conditionsRequire = ConditionsRequire.all
+    var conditionsRequired: Conditions?
 
     // Contact
     var contactHidden = false
@@ -128,9 +128,9 @@ class Action {
                 self.conditions = try Conditions(configuration: conditionsConfiguration)
             }
 
-        case .conditionsRequire:
-            if let conditionsRequireString = value as? String, let conditionsRequire = ConditionsRequire(rawValue: conditionsRequireString) {
-                self.conditionsRequire = conditionsRequire
+        case .conditionsRequired:
+            if let conditionsRequired = value as? [[String: Any]] {
+                self.conditionsRequired = try Conditions(configuration: conditionsRequired)
             }
 
         case .contactHidden:
@@ -230,12 +230,12 @@ class Action {
     }
 
     func shouldRegister(completionHandler: @escaping (_ status: Bool) -> Void) {
-        guard let conditions = self.conditions else {
+        guard let conditions = self.conditionsRequired else {
             completionHandler(true)
             return
         }
 
-        conditions.verifyBaseConditions(conditionsRequire: self.conditionsRequire) { (status, error) in
+        conditions.verifyAll { (status, error) in
             completionHandler(status == .failed ? false : true)
         }
     }
@@ -243,16 +243,40 @@ class Action {
     func nextScheduledTrigger() -> Date? {
         return self.triggers?.nextScheduledTrigger(dndSchedule: self.dndSchedule)
     }
+
+    func unRegister() {
+        Swift.print("Unregistering action!")
+        switch self.type {
+        case .applicationBlock,
+             .applicationWarn:
+            ActionApplication.shared.unRegister(action: self)
+        case .message:
+            ActionMessage.shared.unRegister(action: self)
+        }
+    }
 }
 
 extension Action {
+    func verifyConditions(completionHandler: @escaping (_ conditionStatus: ConditionStatus, _ error: String?) -> Void) {
+        guard let conditions = self.conditions else {
+            completionHandler(.pass, nil)
+            return
+        }
+
+        if let application = self.applications.first {
+            self.verifyConditions(application, completionHandler: completionHandler)
+        } else {
+            conditions.verifyAll(completionHandler: completionHandler)
+        }
+    }
+
     func verifyConditions(_ application: NSRunningApplication, completionHandler: @escaping (_ conditionStatus: ConditionStatus, _ error: String?) -> Void) {
         guard let conditions = self.conditions else {
             completionHandler(.pass, nil)
             return
         }
 
-        conditions.verify(conditionsRequire: self.conditionsRequire, application: application, completionHandler: completionHandler)
+        conditions.verify(application: application, completionHandler: completionHandler)
     }
 }
 

@@ -23,7 +23,6 @@ struct ScheduleDays: OptionSet {
     static let all: ScheduleDays        = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
     static let weekend: ScheduleDays    = [.saturday, .sunday]
     static let weekdays: ScheduleDays   = [.monday, .tuesday, .wednesday, .thursday, .friday]
-
 }
 
 enum ScheduleInterval: String {

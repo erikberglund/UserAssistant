@@ -18,8 +18,10 @@ class Condition {
     var conditionMatch: ConditionMatch = .equal
     var conditionKeys = [ConditionKey]()
     var mdmStatusEnrollment: [MDMStatusEnrollment]?
+    var firmwarePasswordStatus: FirmwarePasswordStatusEnabled?
     var osVersion: OperatingSystemVersion?
     var script: String?
+    var isRequired: Bool = false
 
     // MARK: -
     // MARK: Initialization
@@ -36,11 +38,10 @@ class Condition {
 
     private func initialize(key: String, value: Any?) throws {
         guard let conditionKey = ConditionKey(rawValue: key) else {
-            Swift.print("Unknown ActionKey will be ignored: \(key)")
-            throw NSError.init(domain: "test", code: -1, userInfo: nil)
+            throw ConditionError.invalidKey(key)
         }
 
-        if conditionKey != .conditionMatch {
+        if ![ConditionKey.conditionMatch, ConditionKey.required].contains(conditionKey) {
             self.conditionKeys.append(conditionKey)
         }
 
@@ -50,11 +51,19 @@ class Condition {
                 let conditionMatchString = value as? String,
                 let conditionMatch = ConditionMatch(rawValue: conditionMatchString) {
                 self.conditionMatch = conditionMatch
+                Swift.print("Condition: [\(conditionKey)]: \(String(describing: conditionMatch))")
             } else {
-                throw NSError.init(domain: "test", code: -1, userInfo: nil)
+                throw ConditionError.invalidValue(value, key)
             }
 
-            Swift.print("Condition: [\(conditionKey)]: \(String(describing: self.conditionMatch))")
+        case .firmwarePasswordStatus:
+            if let firmwarePasswordStatusString = value as? String,
+                let firmwarePasswordStatus = FirmwarePasswordStatusEnabled(rawValue: firmwarePasswordStatusString) {
+                self.firmwarePasswordStatus = firmwarePasswordStatus
+                Swift.print("Condition: [\(conditionKey)]: \(String(describing: firmwarePasswordStatus))")
+            } else {
+                throw ConditionError.invalidValue(value, key)
+            }
 
         case .mdmStatusEnrollment:
             if let mdmStatusEnrollmentArray = value as? [String] {
@@ -66,64 +75,66 @@ class Condition {
                 }
 
                 guard !mdmStatusEnrollment.isEmpty else {
-                    throw NSError.init(domain: "test", code: -1, userInfo: nil)
+                    throw ConditionError.invalidValue(value, key)
                 }
 
                 self.mdmStatusEnrollment = mdmStatusEnrollment
+                Swift.print("Condition: [\(conditionKey)]: \(String(describing: mdmStatusEnrollment))")
+            } else {
+                throw ConditionError.invalidValue(value, key)
             }
-
-            guard self.mdmStatusEnrollment != nil else {
-                throw NSError.init(domain: "test", code: -1, userInfo: nil)
-            }
-
-            Swift.print("Condition: [\(conditionKey)]: \(String(describing: self.mdmStatusEnrollment))")
 
         case .osVersion:
             if
                 let osVersionString = value as? String,
                 let osVersion = OperatingSystemVersion(versionString: osVersionString) {
                 self.osVersion = osVersion
+                Swift.print("Condition: [\(conditionKey)]: \(String(describing: osVersion))")
             } else {
-                throw NSError.init(domain: "test", code: -1, userInfo: nil)
+                throw ConditionError.invalidValue(value, key)
             }
 
+            // FIXME: Need to expand this check for all keys, and create a reference
             guard self.conditionMatch != .contains, self.conditionMatch != .notContains else {
-                throw NSError.init(domain: "Test", code: -1, userInfo: nil)
+                throw ConditionError.invalidMatch(self.conditionMatch, key)
             }
 
-            Swift.print("Condition: [\(conditionKey)]: \(String(describing: self.osVersion))")
+        case .required:
+            if let isRequired = value as? Bool {
+                self.isRequired = isRequired
+                Swift.print("Condition: [\(conditionKey)]: \(String(describing: isRequired))")
+            } else {
+                throw ConditionError.invalidValue(value, key)
+            }
 
         case .script:
             if let script = value as? String, !script.isEmpty {
                 self.script = script
+                Swift.print("Condition: [\(conditionKey)]: \(String(describing: script))")
             } else {
-                throw NSError.init(domain: "test", code: -1, userInfo: nil)
+                throw ConditionError.invalidValue(value, key)
             }
-
-            Swift.print("Condition: [\(conditionKey)]: \(String(describing: self.script))")
 
         case .bundleIdentifier:
             if let bundleIdentifier = value as? String {
                 self.bundleIdentifier = bundleIdentifier
+                Swift.print("Condition: [\(conditionKey)]: \(String(describing: bundleIdentifier))")
             } else {
-                throw NSError.init(domain: "test", code: -1, userInfo: nil)
+                throw ConditionError.invalidValue(value, key)
             }
-
-            Swift.print("Condition: [\(conditionKey)]: \(String(describing: self.bundleIdentifier))")
             
         case .bundleVersion:
             if let bundleVersion = value as? String {
                 self.bundleVersion = bundleVersion
+                Swift.print("Condition: [\(conditionKey)]: \(String(describing: bundleVersion))")
             } else {
-                throw NSError.init(domain: "test", code: -1, userInfo: nil)
+                throw ConditionError.invalidValue(value, key)
             }
-
-            Swift.print("Condition: [\(conditionKey)]: \(String(describing: self.bundleVersion))")
         }
     }
 
     // MARK: -
-    // MARK: Check Conditions
+    // MARK: Verify Conditions
 
     func verify(completionHandler: @escaping (_ conditionStatus: ConditionStatus, _ error: String?) -> Void) {
         for conditionKey in self.conditionKeys {
@@ -131,18 +142,21 @@ class Condition {
             Swift.print("Verifying condition: \(conditionKey)")
 
             switch conditionKey {
+            case .firmwarePasswordStatus:
+                self.verifyFirmwarePasswordStatus(completionHandler: completionHandler)
             case .mdmStatusEnrollment:
                 self.verifyMDMStatusEnrollment(completionHandler: completionHandler)
             case .osVersion:
                 self.verifyOSVersion(completionHandler: completionHandler)
             case .script:
                 self.verifyScript(completionHandler: completionHandler)
-            case .conditionMatch:
-                Swift.print("The key: \(conditionKey) should not be included in the conditions to evaluate")
+            case .required,
+                 .conditionMatch:
+                completionHandler(.failed, "The key: \(conditionKey) should not be included in the conditions to evaluate")
             case .bundleIdentifier:
-                fatalError("Actions containing bundleIdentifier must be called using verify(application:completionHandler:)")
+                completionHandler(.failed, "Actions containing bundleIdentifier must be called using verify(application:completionHandler:)")
             case .bundleVersion:
-                fatalError("Actions containing bundleVersion must be called using verify(application:completionHandler:)")
+                completionHandler(.failed, "Actions containing bundleVersion must be called using verify(application:completionHandler:)")
             }
         }
     }
@@ -153,14 +167,11 @@ class Condition {
             Swift.print("Verifying condition: \(conditionKey) for application: \(application)")
 
             switch conditionKey {
-                case .mdmStatusEnrollment,
-                     .osVersion,
-                     .script,
-                     .conditionMatch:
-                self.verify(completionHandler: completionHandler)
             case .bundleIdentifier,
                  .bundleVersion:
                 self.verifyApplication(application, completionHandler: completionHandler)
+            default:
+                self.verify(completionHandler: completionHandler)
             }
         }
     }

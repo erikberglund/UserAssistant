@@ -35,6 +35,7 @@ class ActionApplication {
 
     func register(action: Action) {
         if !self.isRegisteredForLaunchNotifications {
+            Swift.print("Registering: \(action.type) - \(action.identifier)")
             NSWorkspace.shared.notificationCenter.addObserver(self,
                                                           selector: #selector(willLaunchApplication(_:)),
                                                           name: NSWorkspace.willLaunchApplicationNotification,

@@ -46,12 +46,12 @@ class MessageWindowButtonView: NSView {
     }
 
     func activate(buttonConfiguration: [String: Any]) {
-
+        Swift.print("buttonConfiguration: \(buttonConfiguration)")
         // Link
         if
             let urlString = buttonConfiguration[ButtonKey.link] as? String,
             let url = URL(string: urlString) {
-
+            Swift.print("url: \(url)")
             NSWorkspace.shared.open(url)
             return
         }

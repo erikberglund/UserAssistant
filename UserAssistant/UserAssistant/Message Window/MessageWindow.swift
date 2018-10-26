@@ -157,7 +157,7 @@ class MessageWindow: NSWindow, MessageWindowNavigationDelegate {
 
         Actions.shared.actionsQueued.remove(at: 0)
         if !Actions.shared.actionsQueued.isEmpty {
-            Actions.shared.showQueuedAction()
+            Actions.shared.queueShowNext()
         } else {
             self.hideBackground()
             super.close()

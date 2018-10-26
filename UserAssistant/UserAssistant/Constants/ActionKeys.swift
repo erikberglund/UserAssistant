@@ -33,16 +33,16 @@ enum ActionKey: String {
     /**
      **Array**
 
-     Array of conditions required for this action.
+     Array of conditions required to match this action.
      */
     case conditions = "Conditions"
 
     /**
      **String**
 
-     String 
+     Array of conditions required to load this action.
      */
-    case conditionsRequire = "ConditionsRequire"
+    case conditionsRequired = "ConditionsRequired"
 
     /**
      **Bool**

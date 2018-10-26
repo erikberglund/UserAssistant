@@ -11,6 +11,20 @@ import Foundation
 struct PreferenceKey {
 
     /**
+     **String**
+
+     Domain in the preference database where the asset info is stored.
+     */
+    static let assetInfoDomain = "AssetInfoDomain"
+
+    /**
+     **Dictionary**
+
+     Dictionary with key/value pairs matching the display name (key) and keyPath in the assetInfoDomain to read the value from (value).
+     */
+    static let assetInfoKeys = "AssetInfoKeys"
+
+    /**
      **Bool**
 
      If the contact message and methods should be hidden.

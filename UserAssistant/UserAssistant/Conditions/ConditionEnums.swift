@@ -8,9 +8,10 @@
 
 import Foundation
 
-enum ConditionsRequire: String {
-    case any
-    case all
+enum ConditionError: Error {
+    case invalidKey(String)
+    case invalidValue(Any?, _ forKey: String)
+    case invalidMatch(ConditionMatch, _ forKey: String)
 }
 
 enum ConditionsAction: String {

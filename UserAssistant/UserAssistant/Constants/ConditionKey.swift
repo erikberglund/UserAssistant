@@ -21,6 +21,16 @@ enum ConditionKey: String {
     case conditionMatch = "ConditionMatch"
 
     /**
+     **String**
+
+     Status string for Firmware Password
+     - unknown
+     - enabled
+     - disabled
+     */
+    case firmwarePasswordStatus = "FirmwarePasswordStatus"
+
+    /**
      **Array**
 
      An array of MDMStatusEnrollment strings
@@ -40,6 +50,13 @@ enum ConditionKey: String {
      A script to run, that must only return
      */
     case script = "Script"
+
+    /**
+     **Bool**
+
+     If the conditions is required.
+     */
+    case required = "Required"
 
     /**
      **String**

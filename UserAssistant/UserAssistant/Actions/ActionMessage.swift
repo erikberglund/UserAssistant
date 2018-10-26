@@ -31,34 +31,46 @@ class ActionMessage {
 
     func register(action: Action) {
         if !self.actions.contains(action) {
-            Swift.print("Registering: \(action.identifier)")
+            Swift.print("Registering: \(action.type) - \(action.identifier)")
             self.actions.insert(action)
             self.scheduleAction(action)
         }
     }
 
+    func unRegister(action: Action) {
+        if self.actions.contains(action) {
+            self.actions.remove(action)
+        }
+
+        for timer in self.timers.filter({ $0.userInfo as? String == action.identifier  }) {
+            timer.invalidate()
+            self.timers.remove(timer)
+        }
+    }
+
     func scheduleAction(_ action: Action) {
         if let nextTrigger = action.nextScheduledTrigger() {
-            Swift.print("nextTrigger: \(nextTrigger)")
-            let timer = Timer.scheduledTimer(timeInterval: nextTrigger.timeIntervalSince(Date()),
-                                             target: self,
-                                             selector: #selector(self.queueAction(_:)),
-                                             userInfo: ["identifier": action.identifier],
-                                             repeats: false)
-            self.timers.insert(timer)
+            Swift.print("Scheduling: \(action.type) - \(action.identifier) at \(nextTrigger)")
+            DispatchQueue.main.async {
+                let timer = Timer.scheduledTimer(timeInterval: nextTrigger.timeIntervalSince(Date()),
+                                                 target: self,
+                                                 selector: #selector(self.queueAction),
+                                                 userInfo: action.identifier,
+                                                 repeats: false)
+                self.timers.insert(timer)
+            }
         } else {
             Swift.print("Failed to get next trigger...")
         }
     }
 
-    @objc private func queueAction(_ timer: Timer) {
-        let timerUserInfo = timer.userInfo as? [String: Any]
+    @objc func queueAction(_ timer: Timer) {
+        let timerUserInfo = timer.userInfo
         timer.invalidate()
         self.timers.remove(timer)
 
         guard
-            let userInfo = timerUserInfo,
-            let identifier = userInfo["identifier"] as? String,
+            let identifier = timerUserInfo as? String,
             let action = self.actions.first(where: { $0.identifier == identifier }) else {
                 return
         }

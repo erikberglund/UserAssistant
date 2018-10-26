@@ -27,15 +27,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // ---------------------------------------------------------------------
         //  Register observer to be notified when user defaults are updated
         // ---------------------------------------------------------------------
-        NotificationCenter.default.addObserver(self, selector: #selector(self.userDefaultsChanged(_:)), name: UserDefaults.didChangeNotification, object: nil)
-    }
+        DistributedNotificationCenter.default().addObserver(forName: .MCXManagementStatusChangedForDomains,
+                                                            object: "com.apple.MCX",
+                                                            queue: nil,
+                                                            using: self.mcxManagementStatusChangedForDomains)
 
-    func applicationWillTerminate(_ aNotification: Notification) {
-
-        // ---------------------------------------------------------------------
-        //  Remove observer from notification center
-        // ---------------------------------------------------------------------
-        // NotificationCenter.default.removeObserver(self) addObserver(self, selector: #selector(self.userDefaultsChanged(_:)), name: UserDefaults.didChangeNotification, object: nil)
+        DistributedNotificationCenter.default().addObserver(forName: .ManagedConfigurationProfileListChanged,
+                                                            object: nil,
+                                                            queue: nil,
+                                                            using: self.managedConfigurationProfileListChanged)
+/*
+        MenuItem.shared.showMenuItem()
+        do {
+            try HelperAuthorization.authorizationRightsUpdateDatabase()
+            //try HelperConnection.shared.helperInstall()
+        } catch {
+            Swift.print("error: \(error)")
+        }
+ */
     }
 
     private func registerUserDefaults() {
@@ -70,7 +79,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    @objc func userDefaultsChanged(_ notification: Notification) {
+    @objc func managedConfigurationProfileListChanged(_ notification: Notification) {
+        Swift.print("notification: \(notification)")
+    }
+
+    @objc func mcxManagementStatusChangedForDomains(_ notification: Notification) {
+        guard
+            let bundleID = Bundle.main.bundleIdentifier,
+            let domains = notification.userInfo?["com.apple.MCX.changedDomains"] as? [String],
+            domains.contains(bundleID) else { return }
         self.registerActions(isUserLoggingIn: false)
     }
 

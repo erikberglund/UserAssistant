@@ -58,14 +58,10 @@ class Trigger {
     }
 
     func nextScheduledTrigger(dndSchedule: Schedule?) -> Date? {
-        guard
-            self.type == .repeating,
-            let schedule = self.schedule else {
+        guard self.type == .repeating else {
             return nil
         }
 
-        return schedule.nextScheduledTrigger(dndSchedule: dndSchedule)
-        //Swift.print("schedule: \(schedule)")
-        //return nil
+        return self.schedule?.nextScheduledTrigger(dndSchedule: dndSchedule)
     }
 }

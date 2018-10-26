@@ -2,7 +2,7 @@
 //  Conditions.swift
 //  UserAssistant
 //
-//  Created by Erik Berglund on 2018-08-30.
+//  Created by Erik Berglund.
 //  Copyright © 2018 Erik Berglund. All rights reserved.
 //
 
@@ -33,73 +33,48 @@ class Conditions {
     // MARK: -
     // MARK: Verification
 
-    func verifyBaseConditions(conditionsRequire: ConditionsRequire, completionHandler: @escaping (_ conditionStatus: ConditionStatus, _ error: String?) -> Void) {
-        let baseConditions = self.conditions.filter({ $0.osVersion != nil })
-
-        guard !baseConditions.isEmpty else {
-            completionHandler(.pass, nil)
-            return
-        }
-
-        self.verify(baseConditions,
-                    application: nil,
-                    conditionsRequire: conditionsRequire,
-                    completionHandler: completionHandler)
+    func verifyAll(completionHandler: @escaping (_ conditionStatus: ConditionStatus, _ error: String?) -> Void) {
+        self.verify(self.conditions, application: nil, completionHandler: completionHandler)
     }
 
-    func verify(conditionsRequire: ConditionsRequire, application: NSRunningApplication?, completionHandler: @escaping (_ conditionStatus: ConditionStatus, _ error: String?) -> Void) {
-        self.verify(self.conditions,
-                    application: application,
-                    conditionsRequire: conditionsRequire,
-                    completionHandler: completionHandler)
+    func verify(application: NSRunningApplication?, completionHandler: @escaping (_ conditionStatus: ConditionStatus, _ error: String?) -> Void) {
+        self.verify(self.conditions, application: application, completionHandler: completionHandler)
     }
 
-    private func verify(_ conditions: [Condition], application app: NSRunningApplication?, conditionsRequire: ConditionsRequire, completionHandler: @escaping (_ conditionStatus: ConditionStatus, _ error: String?) -> Void) {
+    private func verify(_ conditions: [Condition], application app: NSRunningApplication?, completionHandler: @escaping (_ conditionStatus: ConditionStatus, _ error: String?) -> Void) {
 
         let dispatchQueue = DispatchQueue(label: "serial")
         let dispatchGroup = DispatchGroup()
         let dispatchSemaphore = DispatchSemaphore(value: 0)
 
         dispatchQueue.async {
-            for condition in conditions {
+
+            // Loop through all condtions, beginning with the required
+            for condition in conditions.sorted(by: { $0.isRequired && !$1.isRequired }) {
                 dispatchGroup.enter()
+
+                // Create a completion handler
+                let completionHandler: (ConditionStatus, String?) -> Void = { (conditionStatus, error) in
+                    if conditionStatus == .failed, condition.isRequired {
+                        DispatchQueue.main.async {
+                            completionHandler(conditionStatus, error)
+                        }
+                        return
+                    } else if conditionStatus == .pass, !condition.isRequired {
+                        DispatchQueue.main.async {
+                            completionHandler(conditionStatus, nil)
+                        }
+                        return
+                    }
+                    dispatchSemaphore.signal()
+                    dispatchGroup.leave()
+                }
+
+                // Call verify depending on 
                 if let application = app {
-                    condition.verify(application: application) { (conditionStatus, error) in
-                        if conditionStatus == .failed {
-                            if conditionsRequire == .all {
-                                DispatchQueue.main.async {
-                                    completionHandler(conditionStatus, error)
-                                }
-                                return
-                            }
-                        } else if conditionStatus == .pass, conditionsRequire == .any {
-                            DispatchQueue.main.async {
-                                completionHandler(conditionStatus, nil)
-                            }
-                            return
-                        }
-                        dispatchSemaphore.signal()
-                        dispatchGroup.leave()
-                    }
+                    condition.verify(application: application, completionHandler: completionHandler)
                 } else {
-                    condition.verify { (conditionStatus, error) in
-                        Swift.print("conditionStatus: \(conditionStatus)")
-                        if conditionStatus == .failed {
-                            if conditionsRequire == .all {
-                                DispatchQueue.main.async {
-                                    completionHandler(conditionStatus, error)
-                                }
-                                return
-                            }
-                        } else if conditionStatus == .pass, conditionsRequire == .any {
-                            DispatchQueue.main.async {
-                                completionHandler(conditionStatus, nil)
-                            }
-                            return
-                        }
-                        dispatchSemaphore.signal()
-                        dispatchGroup.leave()
-                    }
+                    condition.verify(completionHandler: completionHandler)
                 }
                 dispatchSemaphore.wait()
             }
@@ -107,10 +82,10 @@ class Conditions {
 
         dispatchGroup.notify(queue: dispatchQueue) {
             DispatchQueue.main.async {
-                if conditionsRequire == .all {
-                    completionHandler(.pass, nil)
-                } else if conditionsRequire == .any {
+                if conditions.contains(where: { !$0.isRequired }) {
                     completionHandler(.failed, nil)
+                } else {
+                    completionHandler(.pass, nil)
                 }
             }
         }
