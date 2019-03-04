@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5313298A2191D76100FC2DC3 /* StringVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531329892191D76000FC2DC3 /* StringVariables.swift */; };
+		5313298C2191E31E00FC2DC3 /* ConditionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5313298B2191E31E00FC2DC3 /* ConditionItem.swift */; };
 		531F3956216F354800873663 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531F3955216F354800873663 /* Identity.swift */; };
 		531F3957216F356500873663 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531F3955216F354800873663 /* Identity.swift */; };
 		531F395F216F816500873663 /* MenuItemElevatePrivileges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531F395E216F816500873663 /* MenuItemElevatePrivileges.swift */; };
@@ -16,7 +18,7 @@
 		53285AB9214A89E500365B3E /* ExtensionNSRunningApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53285AB8214A89E500365B3E /* ExtensionNSRunningApplication.swift */; };
 		53285AEB214B8BF000365B3E /* MessageWindowBodyApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53285AEA214B8BF000365B3E /* MessageWindowBodyApplication.swift */; };
 		53285AED214B9B1A00365B3E /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53285AEC214B9B1A00365B3E /* Localization.swift */; };
-		53338124214FC98B00113C25 /* TriggerKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53338123214FC98B00113C25 /* TriggerKeys.swift */; };
+		53338124214FC98B00113C25 /* TriggerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53338123214FC98B00113C25 /* TriggerKey.swift */; };
 		53338126214FC9E700113C25 /* Triggers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53338125214FC9E700113C25 /* Triggers.swift */; };
 		53338129214FCA4C00113C25 /* Trigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53338128214FCA4C00113C25 /* Trigger.swift */; };
 		5333812B214FD13500113C25 /* TriggerEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5333812A214FD13500113C25 /* TriggerEnums.swift */; };
@@ -29,7 +31,7 @@
 		5370D20421183B3700FA48E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5370D20321183B3700FA48E0 /* AppDelegate.swift */; };
 		5370D20621183B3900FA48E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5370D20521183B3900FA48E0 /* Assets.xcassets */; };
 		5370D20921183B3900FA48E0 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5370D20721183B3900FA48E0 /* MainMenu.xib */; };
-		5370D21521183C7800FA48E0 /* PreferenceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5370D21421183C7800FA48E0 /* PreferenceKeys.swift */; };
+		5370D21521183C7800FA48E0 /* PreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5370D21421183C7800FA48E0 /* PreferenceKey.swift */; };
 		5370D21821183DC200FA48E0 /* DefaultPreferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5370D21721183DC200FA48E0 /* DefaultPreferences.plist */; };
 		5370D21B2118405400FA48E0 /* MessageWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5370D21A2118405400FA48E0 /* MessageWindow.swift */; };
 		5370D21D211840A300FA48E0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5370D21C211840A300FA48E0 /* Constants.swift */; };
@@ -57,6 +59,8 @@
 		53D9B351216CDA7D006B86F6 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D9B350216CDA7D006B86F6 /* MenuItem.swift */; };
 		53D9B355216CDDC2006B86F6 /* MenuItemComputerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D9B354216CDDC2006B86F6 /* MenuItemComputerInfo.swift */; };
 		53D9B358216D50BC006B86F6 /* HardwareInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D9B357216D50BC006B86F6 /* HardwareInfo.swift */; };
+		53E1E0622191AB7700C94593 /* AssetInfoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E1E0612191AB7700C94593 /* AssetInfoKey.swift */; };
+		53E1E0642191AC0B00C94593 /* MenuItemKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E1E0632191AC0B00C94593 /* MenuItemKey.swift */; };
 		53E220F72175F44400129E15 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F604CC2136CD810086E9F9 /* Task.swift */; };
 		53E220F92175F5FC00129E15 /* ConditionFirmwarePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E220F82175F5FC00129E15 /* ConditionFirmwarePassword.swift */; };
 		53E220FB2175F6B500129E15 /* FirmwarePasswordStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E220FA2175F6B500129E15 /* FirmwarePasswordStatus.swift */; };
@@ -77,10 +81,10 @@
 		53F604DB213822C20086E9F9 /* ConditionOSVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F604DA213822C20086E9F9 /* ConditionOSVersion.swift */; };
 		53F604DD213822E50086E9F9 /* ConditionScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F604DC213822E50086E9F9 /* ConditionScript.swift */; };
 		53F604E3213826390086E9F9 /* ConditionEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F604E2213826390086E9F9 /* ConditionEnums.swift */; };
-		53F604E521382BB40086E9F9 /* ButtonKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F604E421382BB40086E9F9 /* ButtonKeys.swift */; };
+		53F604E521382BB40086E9F9 /* ButtonKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F604E421382BB40086E9F9 /* ButtonKey.swift */; };
 		53FB8CEC2133DDC600BDE2F9 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FB8CEB2133DDC600BDE2F9 /* Actions.swift */; };
 		53FB8CEE2133E75800BDE2F9 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FB8CED2133E75800BDE2F9 /* Action.swift */; };
-		53FB8CF02133E8AA00BDE2F9 /* ActionKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FB8CEF2133E8AA00BDE2F9 /* ActionKeys.swift */; };
+		53FB8CF02133E8AA00BDE2F9 /* ActionKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FB8CEF2133E8AA00BDE2F9 /* ActionKey.swift */; };
 		53FB8D0E213438D000BDE2F9 /* MessageWindowBodyWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FB8D0D213438D000BDE2F9 /* MessageWindowBodyWebView.swift */; };
 		53FC5CEC216B51DC009E9A04 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FC5CEB216B51DC009E9A04 /* main.swift */; };
 		53FC5CF6216B52E4009E9A04 /* com.github.erikberglund.UserAssistantHelper in Copy Helper */ = {isa = PBXBuildFile; fileRef = 53FC5CE9216B51DC009E9A04 /* com.github.erikberglund.UserAssistantHelper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -155,6 +159,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		531329892191D76000FC2DC3 /* StringVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringVariables.swift; sourceTree = "<group>"; };
+		5313298B2191E31E00FC2DC3 /* ConditionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionItem.swift; sourceTree = "<group>"; };
 		531F3955216F354800873663 /* Identity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
 		531F395E216F816500873663 /* MenuItemElevatePrivileges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemElevatePrivileges.swift; sourceTree = "<group>"; };
 		53285AB0214A286100365B3E /* ActionApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionApplication.swift; sourceTree = "<group>"; };
@@ -163,7 +169,7 @@
 		53285AB8214A89E500365B3E /* ExtensionNSRunningApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionNSRunningApplication.swift; sourceTree = "<group>"; };
 		53285AEA214B8BF000365B3E /* MessageWindowBodyApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageWindowBodyApplication.swift; sourceTree = "<group>"; };
 		53285AEC214B9B1A00365B3E /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
-		53338123214FC98B00113C25 /* TriggerKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriggerKeys.swift; sourceTree = "<group>"; };
+		53338123214FC98B00113C25 /* TriggerKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriggerKey.swift; sourceTree = "<group>"; };
 		53338125214FC9E700113C25 /* Triggers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triggers.swift; sourceTree = "<group>"; };
 		53338128214FCA4C00113C25 /* Trigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trigger.swift; sourceTree = "<group>"; };
 		5333812A214FD13500113C25 /* TriggerEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriggerEnums.swift; sourceTree = "<group>"; };
@@ -179,7 +185,7 @@
 		5370D20821183B3900FA48E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		5370D20A21183B3900FA48E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5370D20B21183B3900FA48E0 /* UserAssistant.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UserAssistant.entitlements; sourceTree = "<group>"; };
-		5370D21421183C7800FA48E0 /* PreferenceKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceKeys.swift; sourceTree = "<group>"; };
+		5370D21421183C7800FA48E0 /* PreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceKey.swift; sourceTree = "<group>"; };
 		5370D21721183DC200FA48E0 /* DefaultPreferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DefaultPreferences.plist; sourceTree = "<group>"; };
 		5370D21A2118405400FA48E0 /* MessageWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageWindow.swift; sourceTree = "<group>"; };
 		5370D21C211840A300FA48E0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -207,6 +213,8 @@
 		53D9B350216CDA7D006B86F6 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		53D9B354216CDDC2006B86F6 /* MenuItemComputerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemComputerInfo.swift; sourceTree = "<group>"; };
 		53D9B357216D50BC006B86F6 /* HardwareInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardwareInfo.swift; sourceTree = "<group>"; };
+		53E1E0612191AB7700C94593 /* AssetInfoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetInfoKey.swift; sourceTree = "<group>"; };
+		53E1E0632191AC0B00C94593 /* MenuItemKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemKey.swift; sourceTree = "<group>"; };
 		53E220F82175F5FC00129E15 /* ConditionFirmwarePassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionFirmwarePassword.swift; sourceTree = "<group>"; };
 		53E220FA2175F6B500129E15 /* FirmwarePasswordStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwarePasswordStatus.swift; sourceTree = "<group>"; };
 		53EA33E3211C4CE400001EF8 /* PreferenceKeys.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = PreferenceKeys.md; sourceTree = "<group>"; };
@@ -226,10 +234,10 @@
 		53F604DA213822C20086E9F9 /* ConditionOSVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionOSVersion.swift; sourceTree = "<group>"; };
 		53F604DC213822E50086E9F9 /* ConditionScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionScript.swift; sourceTree = "<group>"; };
 		53F604E2213826390086E9F9 /* ConditionEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionEnums.swift; sourceTree = "<group>"; };
-		53F604E421382BB40086E9F9 /* ButtonKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonKeys.swift; sourceTree = "<group>"; };
+		53F604E421382BB40086E9F9 /* ButtonKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonKey.swift; sourceTree = "<group>"; };
 		53FB8CEB2133DDC600BDE2F9 /* Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
 		53FB8CED2133E75800BDE2F9 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
-		53FB8CEF2133E8AA00BDE2F9 /* ActionKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionKeys.swift; sourceTree = "<group>"; };
+		53FB8CEF2133E8AA00BDE2F9 /* ActionKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionKey.swift; sourceTree = "<group>"; };
 		53FB8D0D213438D000BDE2F9 /* MessageWindowBodyWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageWindowBodyWebView.swift; sourceTree = "<group>"; };
 		53FC5CE9216B51DC009E9A04 /* com.github.erikberglund.UserAssistantHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = com.github.erikberglund.UserAssistantHelper; sourceTree = BUILT_PRODUCTS_DIR; };
 		53FC5CEB216B51DC009E9A04 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -344,12 +352,15 @@
 			isa = PBXGroup;
 			children = (
 				5370D21C211840A300FA48E0 /* Constants.swift */,
-				53FB8CEF2133E8AA00BDE2F9 /* ActionKeys.swift */,
-				53F604E421382BB40086E9F9 /* ButtonKeys.swift */,
+				53FB8CEF2133E8AA00BDE2F9 /* ActionKey.swift */,
+				53E1E0612191AB7700C94593 /* AssetInfoKey.swift */,
+				53F604E421382BB40086E9F9 /* ButtonKey.swift */,
 				53F604D62137D4AA0086E9F9 /* ConditionKey.swift */,
+				53E1E0632191AC0B00C94593 /* MenuItemKey.swift */,
 				5333812F214FD5C600113C25 /* ScheduleKey.swift */,
-				53338123214FC98B00113C25 /* TriggerKeys.swift */,
-				5370D21421183C7800FA48E0 /* PreferenceKeys.swift */,
+				53338123214FC98B00113C25 /* TriggerKey.swift */,
+				5370D21421183C7800FA48E0 /* PreferenceKey.swift */,
+				531329892191D76000FC2DC3 /* StringVariables.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -466,6 +477,7 @@
 			children = (
 				53F604D22137D3FA0086E9F9 /* Conditions.swift */,
 				53F604D42137D4230086E9F9 /* Condition.swift */,
+				5313298B2191E31E00FC2DC3 /* ConditionItem.swift */,
 				53F604E2213826390086E9F9 /* ConditionEnums.swift */,
 				53F604D8213822A20086E9F9 /* ConditionMDMStatusEnrollment.swift */,
 				53E220F82175F5FC00129E15 /* ConditionFirmwarePassword.swift */,
@@ -671,18 +683,20 @@
 				53F604D52137D4230086E9F9 /* Condition.swift in Sources */,
 				53338132214FD61200113C25 /* ScheduleEnums.swift in Sources */,
 				53D9B351216CDA7D006B86F6 /* MenuItem.swift in Sources */,
-				53F604E521382BB40086E9F9 /* ButtonKeys.swift in Sources */,
+				53F604E521382BB40086E9F9 /* ButtonKey.swift in Sources */,
 				53FC5D03216B53B3009E9A04 /* HelperAuthorization.swift in Sources */,
 				53EA33E6211C78FE00001EF8 /* ExtensionNSTextField.swift in Sources */,
 				53FC5D02216B53B1009E9A04 /* HelperAuthorizationRight.swift in Sources */,
 				53285AED214B9B1A00365B3E /* Localization.swift in Sources */,
 				53FC5D05216B53B7009E9A04 /* HelperProtocol.swift in Sources */,
+				5313298C2191E31E00FC2DC3 /* ConditionItem.swift in Sources */,
 				53FB8CEC2133DDC600BDE2F9 /* Actions.swift in Sources */,
 				5370D21F2118412200FA48E0 /* MessageWindowType.swift in Sources */,
 				5370D21B2118405400FA48E0 /* MessageWindow.swift in Sources */,
 				536CACAF213D56A300F8B702 /* ExtensionURL.swift in Sources */,
 				53D9B358216D50BC006B86F6 /* HardwareInfo.swift in Sources */,
 				53285AB9214A89E500365B3E /* ExtensionNSRunningApplication.swift in Sources */,
+				5313298A2191D76100FC2DC3 /* StringVariables.swift in Sources */,
 				53E220F92175F5FC00129E15 /* ConditionFirmwarePassword.swift in Sources */,
 				53EB9476211B15E900E50618 /* MessageWindowContact.swift in Sources */,
 				5333812D214FD41400113C25 /* Schedule.swift in Sources */,
@@ -693,10 +707,10 @@
 				5333813A2151247400113C25 /* IsUserLoggingIn.swift in Sources */,
 				53EA33E8211C796500001EF8 /* ExtensionString.swift in Sources */,
 				53FB8CEE2133E75800BDE2F9 /* Action.swift in Sources */,
-				5370D21521183C7800FA48E0 /* PreferenceKeys.swift in Sources */,
+				5370D21521183C7800FA48E0 /* PreferenceKey.swift in Sources */,
 				53EE6189216DE1B800174B94 /* Networking.swift in Sources */,
 				53D9B355216CDDC2006B86F6 /* MenuItemComputerInfo.swift in Sources */,
-				53338124214FC98B00113C25 /* TriggerKeys.swift in Sources */,
+				53338124214FC98B00113C25 /* TriggerKey.swift in Sources */,
 				53F604DD213822E50086E9F9 /* ConditionScript.swift in Sources */,
 				5370D20421183B3700FA48E0 /* AppDelegate.swift in Sources */,
 				5370D22421185AE900FA48E0 /* ExtensionNSFont.swift in Sources */,
@@ -718,12 +732,14 @@
 				53EB947C211B2D6700E50618 /* MessageWindowButtons.swift in Sources */,
 				53F604CF2136DAD60086E9F9 /* MDMStatus.swift in Sources */,
 				53FB8D0E213438D000BDE2F9 /* MessageWindowBodyWebView.swift in Sources */,
+				53E1E0622191AB7700C94593 /* AssetInfoKey.swift in Sources */,
 				53F604CD2136CD810086E9F9 /* Task.swift in Sources */,
 				531F395F216F816500873663 /* MenuItemElevatePrivileges.swift in Sources */,
 				53F604DB213822C20086E9F9 /* ConditionOSVersion.swift in Sources */,
 				5333812B214FD13500113C25 /* TriggerEnums.swift in Sources */,
+				53E1E0642191AC0B00C94593 /* MenuItemKey.swift in Sources */,
 				53338130214FD5C600113C25 /* ScheduleKey.swift in Sources */,
-				53FB8CF02133E8AA00BDE2F9 /* ActionKeys.swift in Sources */,
+				53FB8CF02133E8AA00BDE2F9 /* ActionKey.swift in Sources */,
 				536DB8FA216B561D000CBA84 /* HelperConnection.swift in Sources */,
 				53F604D72137D4AA0086E9F9 /* ConditionKey.swift in Sources */,
 				53285AB3214A402D00365B3E /* ConditionApplication.swift in Sources */,

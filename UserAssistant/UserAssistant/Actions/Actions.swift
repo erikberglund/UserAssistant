@@ -64,11 +64,12 @@ class Actions {
                             newActionsInactive.append(action)
                         } else {
                             switch action.type {
-                            case .applicationBlock,
-                                 .applicationWarn:
+                            case .applicationLaunch:
                                 ActionApplication.shared.register(action: action)
                             case .message:
                                 ActionMessage.shared.register(action: action)
+                            case .notification:
+                                Swift.print("Not Done")
                             }
                             newActionsActive.append(action)
                         }
@@ -78,7 +79,6 @@ class Actions {
                     })
                 } catch {
                     Swift.print("Failed to create action from configuration: \(value) with error: \(error)")
-                    Swift.print("Error: \(error)")
                     dispatchSemaphore.signal()
                     dispatchGroup.leave()
                 }
@@ -115,7 +115,7 @@ class Actions {
 
     func queue(_ action: Action) {
         Swift.print("Queue: \(action.type) - \(action.identifier)")
-        if self.window.isVisible, action.type == .applicationBlock {
+        if self.window.isVisible, action.type == .applicationLaunch {
             if !self.actionsQueued.contains(where: {$0.identifier == action.identifier }) {
                 Swift.print("Queue Add: \(action.type) - \(action.identifier)")
                 self.actionsQueued.insert(action, at: 0)

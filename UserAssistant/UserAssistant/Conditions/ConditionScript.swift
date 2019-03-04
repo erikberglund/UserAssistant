@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Condition {
+extension ConditionItem {
     func verifyScript(completionHandler: @escaping (_ conditionStatus: ConditionStatus, _ error: String?) -> Void) {
         guard let script = self.script else {
             completionHandler(.failed, nil)

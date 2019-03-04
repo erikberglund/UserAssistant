@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>PayloadContent</key>
+		<array>
+			<dict>
+				
+				<!-- If the menu bar icon should be added to the system menu bar. -->
+				<!-- NOTE: This should only be set once for the system -->
+				<key>ShowMenuBarIcon</key>
+				<true/>
+				
+				<!-- Adds the Computer Info menu item to the menu bar menu. -->
+				<key>ShowMenuItemComputerInfo</key>
+				<true/>
+				
+				<!-- Domain in the preference database where the asset info is stored. -->
+				<key>AssetInfoDomain</key>
+				<string>com.schibsted.computer</string>
+				
+				<!-- Dictionary of key/value pairs to set the group and display name for the value read from the KeyPath. -->
+				<key>AssetInfoKeys</key>
+				<dict>
+					
+					<!-- Group Name -->
+					<key>Computer</key>
+					<dict>
+						
+						<!-- Asset Tag (key) = Display name for the value read from the keyPath "asset_tag" in the preference domain set in AssetInfoDomain -->
+						<key>Asset Tag</key>
+						<string>asset_tag</string>
+					</dict>
+					<key>User</key>
+					<dict>
+						<key>Company</key>
+						<string>user_company</string>
+					</dict>
+				</dict>
+				
+				<!-- Payload Keys -->
+				<key>PayloadDisplayName</key>
+				<string>UserAssistant: Menu Item - Asset Info</string>
+				<key>PayloadIdentifier</key>
+				<string>com.github.erikberglund.UserAssistant.B58FD040-7E81-4BFC-81A9-52F38D7396A4</string>
+				<key>PayloadOrganization</key>
+				<string>UserAssistant</string>
+				<key>PayloadType</key>
+				<string>com.github.erikberglund.UserAssistant</string>
+				<key>PayloadUUID</key>
+				<string>B58FD040-7E81-4BFC-81A9-52F38D7396A4</string>
+				<key>PayloadVersion</key>
+				<integer>1</integer>
+			</dict>
+		</array>
+		<key>PayloadDescription</key>
+		<string>Configures asset preferences for the asset information menu item in UserAssistant</string>
+		<key>PayloadDisplayName</key>
+		<string>UserAssistant: Menu Item - Asset Info</string>
+		<key>PayloadIdentifier</key>
+		<string>com.github.erikberglund.UserAssistant.3015450F-2AEC-483C-A356-D2D7F1EEEE92</string>
+		<key>PayloadOrganization</key>
+		<string>UserAssistant</string>
+		<key>PayloadRemovalDisallowed</key>
+		<true/>
+		<key>PayloadScope</key>
+		<string>System</string>
+		<key>PayloadType</key>
+		<string>Configuration</string>
+		<key>PayloadUUID</key>
+		<string>3015450F-2AEC-483C-A356-D2D7F1EEEE92</string>
+		<key>PayloadVersion</key>
+		<integer>1</integer>
+	</dict>
+</plist>

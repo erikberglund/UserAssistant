@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Condition {
+extension ConditionItem {
     func verifyMDMStatusEnrollment(completionHandler: @escaping (_ conditionStatus: ConditionStatus, _ error: String?) -> Void) {
         guard let mdmStatusEnrollmentMatch = self.mdmStatusEnrollment else {
                 completionHandler(.failed, nil)

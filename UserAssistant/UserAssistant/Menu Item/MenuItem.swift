@@ -20,8 +20,12 @@ class MenuItem {
 
     var item: NSStatusItem?
 
-    let menuItemComputerInfo = MenuItemComputerInfo()
-    let menuItemElevatePrivileges = MenuItemElevatePrivileges()
+    lazy var menuItemComputerInfo: MenuItemComputerInfo = {
+        return MenuItemComputerInfo()
+    }()
+    let menuItemElevatePrivileges: MenuItemElevatePrivileges = {
+        return MenuItemElevatePrivileges()
+    }()
 
     // MARK: -
     // MARK: Functions
@@ -32,20 +36,25 @@ class MenuItem {
             self.item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         }
 
-        self.item?.title = "Schibsted"
+        self.item?.title = "UserAssistant"
         self.item?.menu = self.menu()
     }
 
     func menu() -> NSMenu {
 
         let menu = NSMenu()
+        let ud = UserDefaults.standard
 
         // MenuItem: Computer
-        menu.addItem(self.menuItemComputerInfo)
-        menu.addItem(NSMenuItem.separator())
+        if ud.bool(forKey: MenuItemKey.showComputerInfo) {
+            menu.addItem(self.menuItemComputerInfo)
+            menu.addItem(NSMenuItem.separator())
+        }
 
         // MenuItem: Elevate Privileges
-        menu.addItem(self.menuItemElevatePrivileges)
+        if ud.bool(forKey: MenuItemKey.showElevatePrivileges) {
+            menu.addItem(self.menuItemElevatePrivileges)
+        }
         
         return menu
     }

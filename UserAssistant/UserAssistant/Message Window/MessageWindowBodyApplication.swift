@@ -75,14 +75,14 @@ class MessageWindowBodyApplication: NSView {
         // ---------------------------------------------------------------------
         //  Set the passed values
         // ---------------------------------------------------------------------
-        self.setValue(application.localizedName, forKey: self.applicationNameSelector)
+        self.setValue(application.bundleDisplayName ?? application.bundleName ?? application.localizedName , forKey: self.applicationNameSelector)
         self.setValue(application.bundleURL?.path, forKey: self.applicationPathSelector)
         self.setValue(application.icon, forKey: self.applicationIconSelector)
 
         // ---------------------------------------------------------------------
         //  Update the text field string value to resolve the HTML encoding
         // ---------------------------------------------------------------------
-        self.textFieldMessage.setStringValueAsHTML(message)
+        self.textFieldMessage.setStringValueAsHTML(message, application: application)
     }
 
     // MARK: -

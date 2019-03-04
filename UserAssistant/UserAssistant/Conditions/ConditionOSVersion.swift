@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Condition {
+extension ConditionItem {
     func verifyOSVersion(completionHandler: (_ conditionStatus: ConditionStatus, _ error: String?) -> Void) {
         guard let osVersionMatch = self.osVersion else {
             completionHandler(.failed, nil)
@@ -19,11 +19,11 @@ extension Condition {
         case .equal:
             completionHandler(ProcessInfo.processInfo.operatingSystemVersion == osVersionMatch ? .pass : .failed, nil)
         case .greaterThan:
-            completionHandler(ProcessInfo.processInfo.operatingSystemVersion != osVersionMatch && ProcessInfo.processInfo.isOperatingSystemAtLeast(osVersionMatch)  ? .pass : .failed, nil)
+            completionHandler(ProcessInfo.processInfo.operatingSystemVersion != osVersionMatch && ProcessInfo.processInfo.isOperatingSystemAtLeast(osVersionMatch) ? .pass : .failed, nil)
         case .greaterThanOrEqual:
             completionHandler(ProcessInfo.processInfo.isOperatingSystemAtLeast(osVersionMatch) ? .pass : .failed, nil)
         case .lessThan:
-            completionHandler(ProcessInfo.processInfo.operatingSystemVersion != osVersionMatch && !ProcessInfo.processInfo.isOperatingSystemAtLeast(osVersionMatch)  ? .pass : .failed, nil)
+            completionHandler(ProcessInfo.processInfo.operatingSystemVersion != osVersionMatch && !ProcessInfo.processInfo.isOperatingSystemAtLeast(osVersionMatch) ? .pass : .failed, nil)
         case .lessThanOrEqual:
             completionHandler(ProcessInfo.processInfo.operatingSystemVersion == osVersionMatch || !ProcessInfo.processInfo.isOperatingSystemAtLeast(osVersionMatch) ? .pass : .failed, nil)
         default:

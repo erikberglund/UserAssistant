@@ -17,8 +17,8 @@ let kMenuBarMenuItemWidht: CGFloat = 400.0
 let kMenuBarMenuItemHeight: CGFloat = 50.0
 
 enum ActionType: String {
-    case applicationBlock
-    case applicationWarn
+    case applicationLaunch
+    case notification
     case message
 }
 

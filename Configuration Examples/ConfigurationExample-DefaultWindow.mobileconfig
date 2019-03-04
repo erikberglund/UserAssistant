@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>PayloadContent</key>
+		<array>
+			<dict>
+				
+				<!-- Height in pixels of the message window. (Minimum: 400.0. Default: 580.0). -->
+				<key>WindowHeight</key>
+				<real>700</real>
+				
+				<!-- Width in pixels of the message window. (Minimum: 600.0. Default: 780.0). -->
+				<key>WindowWidth</key>
+				<real>900</real>
+				
+				<!-- Whether the header view should use the default window background color. -->
+				<key>WindowShowHeaderBackgroundColor</key>
+				<true/>
+				
+				<!-- Payload Keys -->
+				<key>PayloadDisplayName</key>
+				<string>UserAssistant: Default Window</string>
+				<key>PayloadIdentifier</key>
+				<string>com.github.erikberglund.UserAssistant.C614D5C0-34E1-44D0-9321-3F8D5520958C</string>
+				<key>PayloadOrganization</key>
+				<string>UserAssistant</string>
+				<key>PayloadType</key>
+				<string>com.github.erikberglund.UserAssistant</string>
+				<key>PayloadUUID</key>
+				<string>C614D5C0-34E1-44D0-9321-3F8D5520958C</string>
+				<key>PayloadVersion</key>
+				<integer>1</integer>
+			</dict>
+		</array>
+		<key>PayloadDescription</key>
+		<string>Configures default window preferences for UserAssistant</string>
+		<key>PayloadDisplayName</key>
+		<string>UserAssistant: Default Window</string>
+		<key>PayloadIdentifier</key>
+		<string>com.github.erikberglund.UserAssistant.1FE32473-C84A-43A6-B2E6-9DCE01E4F61F</string>
+		<key>PayloadOrganization</key>
+		<string>UserAssistant</string>
+		<key>PayloadRemovalDisallowed</key>
+		<true/>
+		<key>PayloadScope</key>
+		<string>System</string>
+		<key>PayloadType</key>
+		<string>Configuration</string>
+		<key>PayloadUUID</key>
+		<string>1FE32473-C84A-43A6-B2E6-9DCE01E4F61F</string>
+		<key>PayloadVersion</key>
+		<integer>1</integer>
+	</dict>
+</plist>

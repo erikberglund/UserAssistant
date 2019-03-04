@@ -8,10 +8,8 @@
 
 import Cocoa
 
-extension Condition {
+extension ConditionItem {
     func verifyApplication(_ application: NSRunningApplication, completionHandler: @escaping (_ conditionStatus: ConditionStatus, _ error: String?) -> Void) {
-
-        Swift.print("application.bundleURL: \(application.bundleURL)")
 
         var conditionStatus: ConditionStatus = .failed
 
@@ -35,13 +33,12 @@ extension Condition {
                 conditionStatus = appBundleIdentifier.hasPrefix(bundleIdentifier) ? .pass : .failed
             case .endsWith:
                 conditionStatus = appBundleIdentifier.hasSuffix(bundleIdentifier) ? .pass : .failed
-            case .greaterThan,
-                 .greaterThanOrEqual,
-                 .lessThan,
-                 .lessThanOrEqual:
+            default:
                 Swift.print("Invalid condition match: \(self.conditionMatch)")
                 conditionStatus = .failed
             }
+
+            Swift.print("conditionStatus bundleIdentifier: \(conditionStatus)")
 
             if conditionStatus == .failed {
                 Swift.print("Condition \"\(self.conditionMatch)\" did not match when comparing application bundle identifier: \(appBundleIdentifier) to: \(bundleIdentifier)")
@@ -51,7 +48,10 @@ extension Condition {
         }
 
         if let bundleVersion = self.bundleVersion {
-            guard let appBundleVersion = application.infoDictionary?["CFBundleShortVersionString"] as? String else {
+
+            let appBundleVersion = application.bundleShortVersion
+
+            guard !appBundleVersion.isEmpty else {
                     completionHandler(.failed, nil)
                     return
             }
@@ -80,12 +80,16 @@ extension Condition {
                 conditionStatus = appBundleVersion.isVersion(lessThanOrEqualTo: bundleVersion) ? .pass : .failed
             }
 
+            Swift.print("conditionStatus bundleVersion: \(conditionStatus)")
+
             if conditionStatus == .failed {
                 Swift.print("Condition \"\(self.conditionMatch)\" did not match when comparing application bundle version: \(appBundleVersion) to: \(bundleVersion)")
                 completionHandler(conditionStatus, nil)
                 return
             }
         }
+
+        Swift.print("conditionStatus returning: \(conditionStatus)")
 
         completionHandler(conditionStatus, nil)
     }

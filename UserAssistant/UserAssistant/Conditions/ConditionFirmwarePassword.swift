@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Condition {
+extension ConditionItem {
     func verifyFirmwarePasswordStatus(completionHandler: @escaping (_ conditionStatus: ConditionStatus, _ error: String?) -> Void) {
         guard let firmwarePasswordStatusMatch = self.firmwarePasswordStatus else {
             completionHandler(.failed, nil)

@@ -18,10 +18,18 @@ enum ActionKey: String {
      Allowed values:
         - "message" (default)
         - "notification"
-        - "applicationBlock"
-        - "applicationWarn"
+        - "applicationLaunch"
      */
     case type = "ActionType"
+
+    /**
+     **Bool**
+
+     If a force quit should be sent to the application trying to launch.
+
+     NOTE: There is no guarantee that the application will quit. If you need to block applications reliably, use Google's Santa.
+     */
+    case applicationQuit = "ApplicationQuit"
 
     /**
      **Array**
@@ -33,7 +41,7 @@ enum ActionKey: String {
     /**
      **Array**
 
-     Array of conditions required to match this action.
+     Array of conditions required to match for this action to be activated.
      */
     case conditions = "Conditions"
 
@@ -68,35 +76,21 @@ enum ActionKey: String {
     /**
      **Date**
 
-     Date after which the action will be allowed.
+     Action must be completed before this this date.
      */
-    case dateStart = "DateStart"
-
-    /**
-     **Date**
-
-     Date after which the action will not be allowed.
-     */
-    case dateEnd = "DateEnd"
-
-    /**
-     **Date**
-
-     Date before the action must be completed. A countdown in the message will be shown.
-     */
-    case dateRequired = "DateRequired"
+    case dueDate = "DueDate"
 
     /**
      **Int**
 
-     Number of days before the dateRequired where the message should start warn the user that an action must be performed.
+     Number of days before `DueDate` where a warning will be shown when the action is presented.
      */
-    case dateRequiredWarningDays = "DateRequiredWarningDays"
+    case dueDateWarningDays = "DueDateWarningDays"
 
     /**
      **Dictionary**
 
-     Schedule where to not show this notification.
+     Schedule when to not show this notification.
      */
     case dndSchedule = "DNDSchedule"
 
@@ -106,20 +100,6 @@ enum ActionKey: String {
      Whether this rule should ignore the users do not disturb settings.
      */
     case dndIgnore = "DNDIgnore"
-
-    /**
-     **Bool**
-
-     Whether the header view should use the default window background color.
-     */
-    case showHeaderBackgroundColor = "ShowHeaderBackgroundColor"
-
-    /**
-     **Array**
-
-     Array of Trigger dictionaries
-     */
-    case triggers = "Triggers"
 
     /**
      **Dictionary**
@@ -140,7 +120,7 @@ enum ActionKey: String {
     /**
      **Bool**
 
-     Whether the HTML message should be shown in full size content view or indented as the regular message.
+     Whether the message should not be indented and instead use the full width of the window.
      */
     case messageFullSizeContent = "MessageFullSizeContent"
 
@@ -164,11 +144,32 @@ enum ActionKey: String {
     case messageURL = "MessageURL"
 
     /**
+     **Date**
+
+     Action is not valid after this date.
+     */
+    case notValidAfter = "NotValidAfter"
+
+    /**
+     **Date**
+
+     Action is not valid before this date.
+     */
+    case notValidBefore = "NotValidBefore"
+
+    /**
      **String**
 
      The title of the message.
      */
     case title = "Title"
+
+    /**
+     **Array**
+
+     Array of Trigger dictionaries
+     */
+    case triggers = "Triggers"
 
     /**
      **Float**
@@ -183,4 +184,11 @@ enum ActionKey: String {
      Width of the message window.
      */
     case windowWidth = "WindowWidth"
+
+    /**
+     **Bool**
+
+     Whether the header view should use the default window background color.
+     */
+    case windowShowHeaderBackgroundColor = "WindowShowHeaderBackgroundColor"
 }

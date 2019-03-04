@@ -80,22 +80,26 @@ class MenuItemComputerInfoView: NSView {
             NSAnimationContext.runAnimationGroup { (context) in
                 context.duration = 0.25
                 context.allowsImplicitAnimation = true
-                
-                self.addAssetInfo()
-                
-                self.setFrameSize(NSSize(width: kMenuBarMenuItemWidht, height: self.assetViewsHeight))
+                self.updateAssetViews()
             }
         } else {
-            self.setFrameSize(NSSize(width: kMenuBarMenuItemWidht, height: 100.0))
+            self.updateAssetViews()
         }
-        
-        Swift.print("sender: \(sender)")
+    }
+
+    private func updateAssetViews() {
+        if self.frame.size.height == kMenuBarMenuItemHeight {
+            self.addAssetViews()
+            self.setFrameSize(NSSize(width: kMenuBarMenuItemWidht, height: self.assetViewsHeight))
+        } else {
+            self.resetAssetViews()
+        }
     }
 
     private func assetInfoDict() -> [String: [String: Any]]? {
         guard
-            let assetInfoDomain = UserDefaults.standard.string(forKey: PreferenceKey.assetInfoDomain),
-            let assetInfoKeys = UserDefaults.standard.dictionary(forKey: PreferenceKey.assetInfoKeys) as? [String: [String: String]],
+            let assetInfoDomain = UserDefaults.standard.string(forKey: AssetInfoKey.domain),
+            let assetInfoKeys = UserDefaults.standard.dictionary(forKey: AssetInfoKey.keys) as? [String: [String: String]],
             let assetInfoDefaults = UserDefaults(suiteName: assetInfoDomain) else {
                 return nil
         }
@@ -113,7 +117,7 @@ class MenuItemComputerInfoView: NSView {
         return assetInfoDict
     }
 
-    private func addAssetInfo() {
+    private func addAssetViews() {
 
         guard let assetInfoDict = self.assetInfoDict() else {
             return
@@ -179,7 +183,7 @@ class MenuItemComputerInfoView: NSView {
 
         let spacingTop: CGFloat = 2.0
 
-        textField.textColor = .quaternaryLabelColor
+        textField.textColor = .secondaryLabelColor
         textField.setContentCompressionResistancePriority(.required, for: .horizontal)
         textField.setContentCompressionResistancePriority(.required, for: .vertical)
 

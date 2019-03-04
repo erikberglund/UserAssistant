@@ -91,7 +91,7 @@ class MessageWindow: NSWindow, MessageWindowNavigationDelegate {
         self.headerView.setupHeader(withTitle: localizedString(for: action.messageTitle),
                                     description: localizedString(for: action.messageDescription),
                                     icon: action.icon,
-                                    showBackground: action.showHeaderBackgroundColor)
+                                    showBackground: action.windowShowHeaderBackgroundColor)
 
         // ---------------------------------------------------------------------
         //  Remove existing body content
@@ -115,7 +115,7 @@ class MessageWindow: NSWindow, MessageWindowNavigationDelegate {
         //  Configure Body Information
         // ---------------------------------------------------------------------
         let message = localizedString(for: action.message)
-        if action.type == .applicationBlock || action.type == .applicationWarn {
+        if action.type == .applicationLaunch {
             if let application = action.applications.first {
                 self.setupBodyApplication(constraints: &constraints)
                 NSLayoutConstraint.activate(constraints)
@@ -133,10 +133,10 @@ class MessageWindow: NSWindow, MessageWindowNavigationDelegate {
                 self.bodyView.setupMessage(message)
                 self.orderFront() // FIXME: Move this maybe?
             }
-        } else if let actionURL = action.messageURL {
+        } else if let messageURL = action.messageURL {
             self.setupBodyWebView(constraints: &constraints)
             NSLayoutConstraint.activate(constraints)
-            self.bodyWebView?.loadURL(actionURL, fullSizeContent: action.messageFullSizeContent)
+            self.bodyWebView?.loadURL(messageURL, fullSizeContent: action.messageFullSizeContent)
         }
     }
 

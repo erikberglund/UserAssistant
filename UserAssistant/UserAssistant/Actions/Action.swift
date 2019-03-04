@@ -14,6 +14,7 @@ class Action {
     // Application
     // Here a reference to the applications this rule will block. They will be removed once the block prompt has been shown.
     var applications = [NSRunningApplication]()
+    var applicationQuit: Bool = false
 
     // Configuration
     let configuration: [String: Any]
@@ -49,10 +50,10 @@ class Action {
     var dndSchedule: Schedule?
 
     // Date
-    var dateStart: Date?
-    var dateEnd: Date?
-    var dateRequired: Date?
-    var dateRequiredWarningDays: Int?
+    var notValidBefore: Date?
+    var notValidAfter: Date?
+    var dueDate: Date?
+    var dueDateWarningDays: Int?
 
     // Message
     var message: [String: String]?
@@ -77,7 +78,7 @@ class Action {
     // Window
     var windowWidth: CGFloat?
     var windowHeight: CGFloat?
-    var showHeaderBackgroundColor = false
+    var windowShowHeaderBackgroundColor = false
 
     // MARK: -
     // MARK: Initialization
@@ -118,18 +119,23 @@ class Action {
         if [ActionKey.type.rawValue, ActionKey.title.rawValue].contains(key) { return }
 
         switch actionKey {
+        case .applicationQuit:
+            if let applicationQuit = value as? Bool {
+                self.applicationQuit = applicationQuit
+            }
+            
         case .buttons:
             if let buttonConfiguration = value as? [[String: Any]] {
                 self.buttonConfiguration = buttonConfiguration
             }
 
         case .conditions:
-            if let conditionsConfiguration = value as? [[String: Any]] {
+            if let conditionsConfiguration = value as? [[String: [String: Any]]] {
                 self.conditions = try Conditions(configuration: conditionsConfiguration)
             }
 
         case .conditionsRequired:
-            if let conditionsRequired = value as? [[String: Any]] {
+            if let conditionsRequired = value as? [[String: [String: Any]]] {
                 self.conditionsRequired = try Conditions(configuration: conditionsRequired)
             }
 
@@ -148,24 +154,24 @@ class Action {
                 self.contactMethodsValue = contactMethodsValue
             }
 
-        case .dateEnd:
-            if let dateEnd = value as? Date {
-                self.dateEnd = dateEnd
+        case .notValidAfter:
+            if let notValidAfter = value as? Date {
+                self.notValidAfter = notValidAfter
             }
 
-        case .dateStart:
-            if let dateStart = value as? Date {
-                self.dateStart = dateStart
+        case .notValidBefore:
+            if let notValidBefore = value as? Date {
+                self.notValidBefore = notValidBefore
             }
 
-        case .dateRequired:
-            if let dateRequired = value as? Date {
-                self.dateRequired = dateRequired
+        case .dueDate:
+            if let dueDate = value as? Date {
+                self.dueDate = dueDate
             }
 
-        case .dateRequiredWarningDays:
-            if let dateRequiredWarningDays = value as? Int {
-                self.dateRequiredWarningDays = dateRequiredWarningDays
+        case .dueDateWarningDays:
+            if let dueDateWarningDays = value as? Int {
+                self.dueDateWarningDays = dueDateWarningDays
             }
 
         case .dndIgnore:
@@ -178,9 +184,9 @@ class Action {
                 self.dndSchedule = dndSchedule
             }
 
-        case .showHeaderBackgroundColor:
-            if let showHeaderBackgroundColor = value as? Bool {
-                self.showHeaderBackgroundColor = showHeaderBackgroundColor
+        case .windowShowHeaderBackgroundColor:
+            if let windowShowHeaderBackgroundColor = value as? Bool {
+                self.windowShowHeaderBackgroundColor = windowShowHeaderBackgroundColor
             }
 
         case .triggers:
@@ -230,6 +236,8 @@ class Action {
     }
 
     func shouldRegister(completionHandler: @escaping (_ status: Bool) -> Void) {
+
+        // Get the ConditionsRequired array, if none exist, the action will be registered automatically.
         guard let conditions = self.conditionsRequired else {
             completionHandler(true)
             return
@@ -245,13 +253,13 @@ class Action {
     }
 
     func unRegister() {
-        Swift.print("Unregistering action!")
         switch self.type {
-        case .applicationBlock,
-             .applicationWarn:
+        case .applicationLaunch:
             ActionApplication.shared.unRegister(action: self)
         case .message:
             ActionMessage.shared.unRegister(action: self)
+        case .notification:
+            Swift.print("Not Done")
         }
     }
 }
@@ -272,10 +280,9 @@ extension Action {
 
     func verifyConditions(_ application: NSRunningApplication, completionHandler: @escaping (_ conditionStatus: ConditionStatus, _ error: String?) -> Void) {
         guard let conditions = self.conditions else {
-            completionHandler(.pass, nil)
+            completionHandler(.failed, nil)
             return
         }
-
         conditions.verify(application: application, completionHandler: completionHandler)
     }
 }

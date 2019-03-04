@@ -1,56 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>AssetInfoDomain</key>
-	<string>com.schibsted.computer</string>
-	<key>AssetInfoKeys</key>
-	<dict>
-		<key>User</key>
-		<dict>
-			<key>Company</key>
-			<string>user_company</string>
-			<key>Department</key>
-			<string>user_department</string>
-			<key>Email</key>
-			<string>user_email</string>
-			<key>Name</key>
-			<string>user_full_name</string>
-			<key>Title</key>
-			<string>user_title</string>
-		</dict>
-		<key>Manager</key>
-		<dict>
-			<key>Name</key>
-			<string>manager_name</string>
-			<key>Email</key>
-			<string>manager_email</string>
-		</dict>
-		<key>Computer</key>
-		<dict>
-			<key>Asset Tag</key>
-			<string>asset_tag</string>
-			<key>Exclude From Backup</key>
-			<string>computer_exclude_from_backup</string>
-			<key>Serial Number</key>
-			<string>%SERIALNUMBER%</string>
-			<key>Computer Name</key>
-			<string>%COMPUTERNAME%</string>
-			<key>Shared</key>
-			<string>computer_shared</string>
-		</dict>
-	</dict>
-	<key>LogoPath</key>
-	<string>/Library/Management/Schibsted/schibsted.icns</string>
-	<key>ContactHidden</key>
-	<true/>
-	<key>ContactMessage</key>
-	<string>For further information, please contact Servicedesk.</string>
-	<key>ContactMethods</key>
-	<array>
-		<string>+46 8 725 2200</string>
-		<string>servicedesk@schibsted.se</string>
-		<string>#etech-support</string>
-	</array>
-</dict>
+<dict/>
 </plist>

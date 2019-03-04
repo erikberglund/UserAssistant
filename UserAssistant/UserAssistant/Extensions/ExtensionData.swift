@@ -9,6 +9,7 @@
 import Foundation
 
 extension Data {
+    
     var html2AttributedString: NSAttributedString? {
         do {
             return try NSAttributedString(data: self,

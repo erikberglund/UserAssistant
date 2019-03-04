@@ -11,20 +11,6 @@ import Foundation
 struct PreferenceKey {
 
     /**
-     **String**
-
-     Domain in the preference database where the asset info is stored.
-     */
-    static let assetInfoDomain = "AssetInfoDomain"
-
-    /**
-     **Dictionary**
-
-     Dictionary with key/value pairs matching the display name (key) and keyPath in the assetInfoDomain to read the value from (value).
-     */
-    static let assetInfoKeys = "AssetInfoKeys"
-
-    /**
      **Bool**
 
      If the contact message and methods should be hidden.
@@ -46,13 +32,6 @@ struct PreferenceKey {
     static let contactMethods = "ContactMethods"
 
     /**
-     **Bool**
-
-     Whether the header view should use the default window background color.
-     */
-    static let showHeaderBackgroundColor = "ShowHeaderBackgroundColor"
-
-    /**
      **String**
 
      The full path to an image file to be used as the logo (minimum 65 x 65 pixels).
@@ -60,16 +39,30 @@ struct PreferenceKey {
     static let logoPath = "LogoPath"
 
     /**
+     **Bool**
+
+     Determines whether the menu bar icon should be added to the system menu bar.
+     */
+    static let showMenuBarIcon = "ShowMenuBarIcon"
+
+    /**
      **Float**
 
-     Height of the message window.
+     Height in pixels of the message window. (Minimum: x. Default: x).
      */
     static let windowHeight = "WindowHeight"
 
     /**
      **Float**
 
-     Width of the message window.
+     Width in pixels of the message window. (Minimum: x. Default: x).
      */
     static let windowWidth = "WindowWidth"
+
+    /**
+     **Bool**
+
+     Whether the header view should use the default window background color.
+     */
+    static let windowShowHeaderBackgroundColor = "WindowShowHeaderBackgroundColor"
 }

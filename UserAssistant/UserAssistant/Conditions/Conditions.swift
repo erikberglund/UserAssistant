@@ -18,7 +18,7 @@ class Conditions {
     // MARK: -
     // MARK: Initialization
 
-    init?(configuration: [[String: Any]]) throws {
+    init?(configuration: [[String: [String: Any]]]) throws {
         for conditionConfiguration in configuration {
             if let condition = try Condition(configuration: conditionConfiguration) {
                 self.conditions.append(condition)
@@ -43,51 +43,38 @@ class Conditions {
 
     private func verify(_ conditions: [Condition], application app: NSRunningApplication?, completionHandler: @escaping (_ conditionStatus: ConditionStatus, _ error: String?) -> Void) {
 
-        let dispatchQueue = DispatchQueue(label: "serial")
+        let dispatchQueue = DispatchQueue(label: "verifyConditions")
         let dispatchGroup = DispatchGroup()
         let dispatchSemaphore = DispatchSemaphore(value: 0)
 
         dispatchQueue.async {
-
-            // Loop through all condtions, beginning with the required
-            for condition in conditions.sorted(by: { $0.isRequired && !$1.isRequired }) {
+            for condition in conditions {
                 dispatchGroup.enter()
 
-                // Create a completion handler
-                let completionHandler: (ConditionStatus, String?) -> Void = { (conditionStatus, error) in
-                    if conditionStatus == .failed, condition.isRequired {
-                        DispatchQueue.main.async {
-                            completionHandler(conditionStatus, error)
-                        }
-                        return
-                    } else if conditionStatus == .pass, !condition.isRequired {
-                        DispatchQueue.main.async {
-                            completionHandler(conditionStatus, nil)
-                        }
+                let completion: (ConditionStatus, String?) -> Void = { (conditionStatus, error) in
+                    if conditionStatus == .failed {
+                        DispatchQueue.main.async { completionHandler(conditionStatus, error) }
+                        dispatchGroup.leave()
                         return
                     }
+
                     dispatchSemaphore.signal()
                     dispatchGroup.leave()
                 }
 
-                // Call verify depending on 
+                // Call verify depending on if an app was passed or not
                 if let application = app {
-                    condition.verify(application: application, completionHandler: completionHandler)
+                    condition.verify(application: application, completionHandler: completion)
                 } else {
-                    condition.verify(completionHandler: completionHandler)
+                    condition.verify(completionHandler: completion)
                 }
+
                 dispatchSemaphore.wait()
             }
         }
 
         dispatchGroup.notify(queue: dispatchQueue) {
-            DispatchQueue.main.async {
-                if conditions.contains(where: { !$0.isRequired }) {
-                    completionHandler(.failed, nil)
-                } else {
-                    completionHandler(.pass, nil)
-                }
-            }
+            DispatchQueue.main.async { completionHandler(.pass, nil) }
         }
     }
 }

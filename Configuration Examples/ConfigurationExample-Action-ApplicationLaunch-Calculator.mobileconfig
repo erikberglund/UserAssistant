@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>PayloadContent</key>
+		<array>
+			<dict>
+				
+				<!-- The action identifier. -->
+				<!-- Every action MUST be configured inside an action identifier as the key starting with com.github.erikberglund.UserAssistant.<uniqueidentifier> -->
+				<!-- This is not overwrite any setting in the preference domain. -->
+				<key>com.github.erikberglund.UserAssistant.5D17DBCF-D64A-462A-AAF5-02AB377C44B2</key>
+				<dict>
+				
+					<!-- The type of action. -->
+					<!-- NOTE: This key is REQUIRED -->
+					<key>ActionType</key>
+					<string>applicationLaunch</string>
+				
+					<!-- The localized titles. -->
+					<!-- NOTE: This key is REQUIRED -->
+					<key>Title</key>
+					<dict>
+						<key>en</key>
+						<string>Calculator Action Title</string>
+						<key>sv_SE</key>
+						<string>Rubrik för Kalkylator</string>
+					</dict>
+					
+					<!-- The following window settings overrides any system wide settings. -->
+					<!-- Settings set in the action directly will have higher priority -->
+					<!-- Height in pixels of the message window. (Minimum: 400.0. Default: 580.0). -->
+					<key>WindowHeight</key>
+					<real>700</real>
+				
+					<!-- Width in pixels of the message window. (Minimum: 600.0. Default: 780.0). -->
+					<key>WindowWidth</key>
+					<real>900</real>
+					
+					<!-- Whether the header view should use the default window background color. -->
+					<key>WindowShowHeaderBackgroundColor</key>
+					<true/>
+					
+					<!-- The message body. -->
+					<!-- This is showing the use of variables to be replaced when shown to the user -->
+					<key>Message</key>
+					<dict>
+						<key>default</key>
+						<string>&lt;center&gt;&lt;b&gt;Bold Centered Message Text&lt;/b&gt;&lt;/center&gt;&lt;br&gt;&lt;br&gt;The message can be localized just like the title.&lt;br&gt;&lt;br&gt;The message can also use HTML tags like "center", "b" and "br" shown above.&lt;br&gt;&lt;br&gt;The message can also include variables that expand when displayed:&lt;br&gt;&lt;br&gt; &lt;ul&gt;&lt;li&gt;USERFULLNAME: %USERFULLNAME%&lt;/li&gt;&lt;li&gt;APPDISPLAYNAME: %APPDISPLAYNAME%&lt;/li&gt;&lt;li&gt;APPSHORTVERSION: %APPSHORTVERSION%&lt;/li&gt;&lt;/ul&gt;</string>
+					</dict>
+					
+					<!-- The conditions for when the action should be taken. -->
+					<key>Conditions</key>
+					<array>
+						<dict>
+							<key>BundleIdentifier</key>
+							<dict>
+								<key>Value</key>
+								<string>com.apple.calculator</string>
+								
+								<!-- If no ConditionMatch key is present, "equal" is used by default. -->
+							</dict>
+							
+							<!-- This is comparing the CFBundleShortVersionString with "Value" using the ConditionMatch comparison. -->
+							<key>BundleVersion</key>
+							<dict>
+								<key>Value</key>
+								<string>10.14</string>
+								<key>ConditionMatch</key>
+								<string>lessThanOrEqual</string>
+							</dict>
+						</dict>
+					</array>
+					
+					<!-- The conditions for when the action should be activated. -->
+					<!-- NOTE: These conditions are only checked when loading the action. -->
+					<!-- Use the regular Conditions array to define conditions to be continually checked. -->
+					<!-- Useful checks here are OS Version, Desktop/Laptop and other static values that only change after a reboot. -->
+					<key>ConditionsRequired</key>
+					<array>
+						<dict>
+							<key>OSVersion</key>
+							<dict>
+								
+								<!-- An OS Version string that only contains Major and Minor values will be exapded with 0 in the missing fields. -->
+								<!-- That means that this OSVersion is effectively: 10.14.0 -->
+								<key>Value</key>
+								<string>10.10</string>
+								
+								<key>ConditionMatch</key>
+								<string>greaterThanOrEqual</string>
+							</dict>
+						</dict>
+					</array>
+					
+					<!-- If a force quit should be sent to the application trying to launch. -->
+					<!-- NOTE: There is no guarantee that the application will quit as this is best effort. If you really need to block applications reliably, use Google's Santa. -->
+					<key>ApplicationQuit</key>
+					<true/>
+					
+					<!-- Array of button configuration dictionaries that will be added to the window with the first item in the array to the left -->
+					<key>Buttons</key>
+					<array>
+						
+						<!-- Button 01 -->
+						<dict>
+							<key>Title</key>
+							<string>Cancel</string>
+							
+							<!-- If no button action is configured, then the button will just close the window. -->
+						</dict>
+						
+						<!-- Button 02 -->
+						<dict>
+							<key>Title</key>
+							<string>Open URL</string>
+														
+							<!-- This is an action to take when the button is clicked. -->
+							<!-- Link expects an URI to open using NSWorkspace.shared.open -->
+							<key>Link</key>
+							<string>https://apple.com</string>
+						</dict>
+						
+						<!-- Button 03 -->
+						<dict>
+							<key>Title</key>
+							<string>Open Path</string>
+														
+							<!-- This is an action to take when the button is clicked. -->
+							<!-- Path expects a local file or directory path to upen using NSWorkspace.shared.openFile -->
+							<key>Path</key>
+							<string>/Applications</string>
+						</dict>
+						
+						<!-- Button 04 -->
+						<dict>
+							<key>Title</key>
+							<string>Open URL and Path</string>
+							
+							<!-- This will be the default selected button, which makes it possible to just click return to select it. -->
+							<!-- NOTE: There should only be ONE button set to IsDefault in the array. -->
+							<key>IsDefault</key>
+							<true/>
+							
+							<!-- This is an action to take when the button is clicked. -->
+							<!-- Link expects an URI to open using NSWorkspace.shared.open -->
+							<key>Link</key>
+							<string>https://apple.com</string>
+							
+							
+							<!-- This is an action to take when the button is clicked. -->
+							<!-- Path expects a local file or directory path to upen using NSWorkspace.shared.openFile -->
+							<key>Path</key>
+							<string>/Applications</string>
+						</dict>
+					</array>
+				</dict>
+				
+				<!-- Payload Keys -->
+				<key>PayloadDisplayName</key>
+				<string>UserAssistant: Application Launch - Calculator</string>
+				<key>PayloadIdentifier</key>
+				<string>com.github.erikberglund.UserAssistant.5D17DBCF-D64A-462A-AAF5-02AB377C44B2</string>
+				<key>PayloadOrganization</key>
+				<string>UserAssistant</string>
+				<key>PayloadType</key>
+				<string>com.github.erikberglund.UserAssistant</string>
+				<key>PayloadUUID</key>
+				<string>5D17DBCF-D64A-462A-AAF5-02AB377C44B2</string>
+				<key>PayloadVersion</key>
+				<integer>1</integer>
+			</dict>
+		</array>
+		<key>PayloadDescription</key>
+		<string>Configures an application launch action for UserAssistant</string>
+		<key>PayloadDisplayName</key>
+		<string>UserAssistant: Application Launch - Calculator</string>
+		<key>PayloadIdentifier</key>
+		<string>com.github.erikberglund.UserAssistant.09E92EAA-5347-4CA6-B8CA-752B95086C3E</string>
+		<key>PayloadOrganization</key>
+		<string>UserAssistant</string>
+		<key>PayloadRemovalDisallowed</key>
+		<true/>
+		<key>PayloadScope</key>
+		<string>System</string>
+		<key>PayloadType</key>
+		<string>Configuration</string>
+		<key>PayloadUUID</key>
+		<string>09E92EAA-5347-4CA6-B8CA-752B95086C3E</string>
+		<key>PayloadVersion</key>
+		<integer>1</integer>
+	</dict>
+</plist>

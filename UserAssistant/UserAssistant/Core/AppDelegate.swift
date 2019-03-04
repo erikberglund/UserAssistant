@@ -20,7 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.registerConstants()
 
         // ---------------------------------------------------------------------
-        //  Register current rules defined
+        //  Register actions currently configured
         // ---------------------------------------------------------------------
         self.registerActions(isUserLoggingIn: isUserLoggingIn())
 
@@ -32,19 +32,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                                             queue: nil,
                                                             using: self.mcxManagementStatusChangedForDomains)
 
-        DistributedNotificationCenter.default().addObserver(forName: .ManagedConfigurationProfileListChanged,
-                                                            object: nil,
-                                                            queue: nil,
-                                                            using: self.managedConfigurationProfileListChanged)
-/*
-        MenuItem.shared.showMenuItem()
+        // ---------------------------------------------------------------------
+        //  Show menu bar icon configured in the application preferences
+        // ---------------------------------------------------------------------
+        if UserDefaults.standard.bool(forKey: PreferenceKey.showMenuBarIcon) {
+            MenuItem.shared.showMenuItem()
+        }
+
+        /* USED WHEN TESTING TO ADD REQUIRED AUTH RIGHTS
         do {
             try HelperAuthorization.authorizationRightsUpdateDatabase()
             //try HelperConnection.shared.helperInstall()
         } catch {
             Swift.print("error: \(error)")
         }
- */
+         */
     }
 
     private func registerUserDefaults() {
@@ -77,10 +79,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let windowHeight = UserDefaults.standard.value(forKey: PreferenceKey.windowHeight) as? Float {
             MessageWindowSize.height = CGFloat(windowHeight < 400.0 ? 400.0 : windowHeight)
         }
-    }
-
-    @objc func managedConfigurationProfileListChanged(_ notification: Notification) {
-        Swift.print("notification: \(notification)")
     }
 
     @objc func mcxManagementStatusChangedForDomains(_ notification: Notification) {

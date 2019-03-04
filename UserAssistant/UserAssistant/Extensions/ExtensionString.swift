@@ -9,6 +9,7 @@
 import Foundation
 
 extension String {
+    
     var html2AttributedString: NSAttributedString? {
         return Data(utf8).html2AttributedString
     }

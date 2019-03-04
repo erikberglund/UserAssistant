@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>PayloadContent</key>
+		<array>
+			<dict>
+				
+				<!-- The action identifier. -->
+				<!-- Every action MUST be configured inside an action identifier as the key starting with com.github.erikberglund.UserAssistant.<uniqueidentifier> -->
+				<!-- This is not overwrite any setting in the preference domain. -->
+				<key>com.github.erikberglund.UserAssistant.A19D910F-DB1E-4E85-8B6A-7C73B80A53F4</key>
+				<dict>
+				
+					<!-- The type of action. -->
+					<!-- NOTE: This key is REQUIRED -->
+					<key>ActionType</key>
+					<string>message</string>
+				
+					<!-- The localized titles. -->
+					<!-- NOTE: This key is REQUIRED -->
+					<key>Title</key>
+					<dict>
+						<key>en</key>
+						<string>FileVault Status</string>
+						<key>sv_SE</key>
+						<string>FileVault-status</string>
+					</dict>
+					
+					<!-- The following window settings overrides any system wide settings. -->
+					<!-- Settings set in the action directly will have higher priority -->
+					<!-- Height in pixels of the message window. (Minimum: 400.0. Default: 580.0). -->
+					<key>WindowHeight</key>
+					<real>700</real>
+				
+					<!-- Width in pixels of the message window. (Minimum: 600.0. Default: 780.0). -->
+					<key>WindowWidth</key>
+					<real>900</real>
+					
+					<!-- Whether the header view should use the default window background color. -->
+					<key>WindowShowHeaderBackgroundColor</key>
+					<true/>
+					
+					<!-- The message body. -->
+					<!-- This is showing the use of variables to be replaced when shown to the user -->
+					<key>Message</key>
+					<dict>
+						<key>default</key>
+						<string>Your computer is not encrypted.</string>
+					</dict>
+					
+					<!-- The conditions for when the action should be taken. -->
+					<key>Conditions</key>
+					<array>
+						<dict>
+							<key>Script</key>
+							<string>
+								#!/bin/bash
+
+								statusON="FileVault is On"
+								statusEncrypting="Encryption in progress"
+								statusDecrypting="Decryption in progress"
+
+								if [[ $( /usr/bin/fdesetup status ) =~ "${statusON}"|"${statusEncrypting}"|"${statusDecrypting}" ]]; then
+									echo "false"
+								else
+									echo "true"
+								fi
+							</string>
+						</dict>
+					</array>
+					
+					<!-- The conditions for when the action should be activated. -->
+					<!-- NOTE: These conditions are only checked when loading the action. -->
+					<!-- Use the regular Conditions array to define conditions to be continually checked. -->
+					<!-- Useful checks here are OS Version, Desktop/Laptop and other static values that only change after a reboot. -->
+					<key>ConditionsRequired</key>
+					<array>
+						<dict>
+							<key>OSVersion</key>
+							<dict>
+								
+								<!-- An OS Version string that only contains Major and Minor values will be exapded with 0 in the missing fields. -->
+								<!-- That means that this OSVersion is effectively: 10.14.0 -->
+								<key>Value</key>
+								<string>10.10</string>
+								
+								<key>ConditionMatch</key>
+								<string>greaterThanOrEqual</string>
+							</dict>
+						</dict>
+					</array>
+					
+					<!-- The triggers for when the action should be checked. -->
+					<key>Triggers</key>
+					<array>
+						
+						<!-- Trigger 01 -->
+						<dict>
+							
+							<!-- Login means that this action will be checked when the user logs in. -->
+							<key>Type</key>
+							<string>login</string>
+						</dict>
+						
+						<!-- Trigger 02 -->
+						<dict>
+							
+							<!-- Repeating means that this action will be scheduled using the Schedule key below -->
+							<key>Type</key>
+							<string>repeating</string>
+							
+							<key>Schedule</key>
+							<dict>
+								
+								<!-- The interval value-->
+								<key>Interval</key>
+								<integer>1</integer>
+								
+								<!-- The inteval unit -->
+								<key>IntervalUnit</key>
+								<string>Minute</string>
+								
+								<!-- Bitmask of the days of the week this action should be scheduled on -->
+								<key>Days</key>
+								<integer>1</integer>
+							</dict>
+						</dict>
+					</array>
+					
+					<!-- Array of button configuration dictionaries that will be added to the window with the first item in the array to the left -->
+					<key>Buttons</key>
+					<array>
+												
+						<!-- Button 01 -->
+						<dict>
+							<key>Title</key>
+							<string>Open Security Preferences</string>
+							
+							<!-- This will be the default selected button, which makes it possible to just click return to select it. -->
+							<!-- NOTE: There should only be ONE button set to IsDefault in the array. -->
+							<key>IsDefault</key>
+							<true/>
+							
+							<!-- This is an action to take when the button is clicked. -->
+							<!-- Path expects a local file or directory path to upen using NSWorkspace.shared.openFile -->
+							<key>Path</key>
+							<string>/System/Library/PreferencePanes/Security.prefPane</string>
+						</dict>
+					</array>
+				</dict>
+				
+				<!-- Payload Keys -->
+				<key>PayloadDisplayName</key>
+				<string>UserAssistant: Message - FileVault</string>
+				<key>PayloadIdentifier</key>
+				<string>com.github.erikberglund.UserAssistant.A19D910F-DB1E-4E85-8B6A-7C73B80A53F4</string>
+				<key>PayloadOrganization</key>
+				<string>UserAssistant</string>
+				<key>PayloadType</key>
+				<string>com.github.erikberglund.UserAssistant</string>
+				<key>PayloadUUID</key>
+				<string>A19D910F-DB1E-4E85-8B6A-7C73B80A53F4</string>
+				<key>PayloadVersion</key>
+				<integer>1</integer>
+			</dict>
+		</array>
+		<key>PayloadDescription</key>
+		<string>Configures a message to be shown if FileVault is disabled.</string>
+		<key>PayloadDisplayName</key>
+		<string>UserAssistant: Message - FileVault</string>
+		<key>PayloadIdentifier</key>
+		<string>com.github.erikberglund.UserAssistant.98D78ABF-BEFC-4C75-9572-9D57A21B490F</string>
+		<key>PayloadOrganization</key>
+		<string>UserAssistant</string>
+		<key>PayloadRemovalDisallowed</key>
+		<true/>
+		<key>PayloadScope</key>
+		<string>System</string>
+		<key>PayloadType</key>
+		<string>Configuration</string>
+		<key>PayloadUUID</key>
+		<string>98D78ABF-BEFC-4C75-9572-9D57A21B490F</string>
+		<key>PayloadVersion</key>
+		<integer>1</integer>
+	</dict>
+</plist>

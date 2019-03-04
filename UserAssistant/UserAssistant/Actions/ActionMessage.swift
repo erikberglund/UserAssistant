@@ -32,7 +32,11 @@ class ActionMessage {
     func register(action: Action) {
         if !self.actions.contains(action) {
             Swift.print("Registering: \(action.type) - \(action.identifier)")
-            self.actions.insert(action)
+            if !self.actions.contains(action) {
+                self.actions.insert(action)
+            } else {
+                self.actions.update(with: action)
+            }
             self.scheduleAction(action)
         }
     }

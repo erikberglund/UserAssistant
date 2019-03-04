@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>PayloadContent</key>
+		<array>
+			<dict>
+				
+				<!-- If the contact message and methods should be hidden. -->
+				<key>ContactHidden</key>
+				<false/>
+				
+				<!-- Localized contact message -->
+				<key>ContactMessage</key>
+				<dict>
+					<key>en</key>
+					<string>For further information, please contact ServiceDesk.</string>
+					<key>sv</key>
+					<string>För ytterligare information, kontakta ServiceDesk.</string>
+				</dict>
+				
+				<!-- Methods shown below the contact message -->
+				<key>ContactMethods</key>
+				<array>
+					<string>+46 8 123 4567</string>
+					<string>servicedesk@company.com</string>
+					<string>#support</string>
+				</array>
+				
+				<!-- Payload Keys -->
+				<key>PayloadDisplayName</key>
+				<string>UserAssistant: Default ContactMessage</string>
+				<key>PayloadIdentifier</key>
+				<string>com.github.erikberglund.UserAssistant.088601EE-4B0D-4000-970F-E499E1D618E9</string>
+				<key>PayloadOrganization</key>
+				<string>UserAssistant</string>
+				<key>PayloadType</key>
+				<string>com.github.erikberglund.UserAssistant</string>
+				<key>PayloadUUID</key>
+				<string>088601EE-4B0D-4000-970F-E499E1D618E9</string>
+				<key>PayloadVersion</key>
+				<integer>1</integer>
+			</dict>
+		</array>
+		<key>PayloadDescription</key>
+		<string>Configures a default ContactMessage for UserAssistant</string>
+		<key>PayloadDisplayName</key>
+		<string>UserAssistant: Default ContactMessage</string>
+		<key>PayloadIdentifier</key>
+		<string>com.github.erikberglund.UserAssistant.6F81AA7E-0E4F-4E5D-8CAE-58DA666582EF</string>
+		<key>PayloadOrganization</key>
+		<string>UserAssistant</string>
+		<key>PayloadRemovalDisallowed</key>
+		<true/>
+		<key>PayloadScope</key>
+		<string>System</string>
+		<key>PayloadType</key>
+		<string>Configuration</string>
+		<key>PayloadUUID</key>
+		<string>6F81AA7E-0E4F-4E5D-8CAE-58DA666582EF</string>
+		<key>PayloadVersion</key>
+		<integer>1</integer>
+	</dict>
+</plist>

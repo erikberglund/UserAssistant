@@ -17,12 +17,12 @@ class Schedule {
     var interval: Int?
     var intervalDateComponents: DateComponents?
     var intervalUnit: ScheduleInterval?
-    var timeStart: String?
-    var timeStartMinute: Int = 0
-    var timeStartHour: Int = 0
-    var timeEnd: String?
-    var timeEndMinute: Int = 0
-    var timeEndHour: Int = 0
+    var notValidBeforeTime: String?
+    var notValidBeforeTimeMinute: Int = 0
+    var notValidBeforeTimeHour: Int = 0
+    var notValidAfterTime: String?
+    var notValidAfterTimeMinute: Int = 0
+    var notValidAfterTimeHour: Int = 0
 
     // MARK: -
     // MARK: Initialization
@@ -76,36 +76,38 @@ class Schedule {
                 self.intervalUnit = intervalUnit
             }
 
-        case .timeStart:
-            if let timeStart = value as? String {
-                let timeStartArray = timeStart.components(separatedBy: ":")
+        case .notValidBeforeTime:
+            if
+                let notValidBeforeTime = value as? String {
+                let notValidBeforeTimeArray = notValidBeforeTime.components(separatedBy: ":")
                 guard
-                    timeStartArray.count == 2,
-                    let timeStartHourString = timeStartArray.first,
-                    let timeStartHour = Int(timeStartHourString),
-                    let timeStartMinuteString = timeStartArray.last,
-                    let timeStartMinute = Int(timeStartMinuteString) else {
+                    notValidBeforeTimeArray.count == 2,
+                    let notValidBeforeTimeHourString = notValidBeforeTimeArray.first,
+                    let notValidBeforeTimeHour = Int(notValidBeforeTimeHourString),
+                    let notValidBeforeTimeMinuteString = notValidBeforeTimeArray.last,
+                    let notValidBeforeTimeMinute = Int(notValidBeforeTimeMinuteString) else {
                         return
                 }
-                self.timeStart = timeStart
-                self.timeStartHour = timeStartHour
-                self.timeStartMinute = timeStartMinute
+                self.notValidBeforeTime = notValidBeforeTime
+                self.notValidBeforeTimeHour = notValidBeforeTimeHour
+                self.notValidBeforeTimeMinute = notValidBeforeTimeMinute
             }
 
-        case .timeEnd:
-            if let timeEnd = value as? String {
-                let timeEndArray = timeEnd.components(separatedBy: ":")
+        case .notValidAfterTime:
+            if
+                let notValidAfterTime = value as? String {
+                let notValidAfterTimeArray = notValidAfterTime.components(separatedBy: ":")
                 guard
-                    timeEndArray.count == 2,
-                    let timeEndHourString = timeEndArray.first,
-                    let timeEndHour = Int(timeEndHourString),
-                    let timeEndMinuteString = timeEndArray.last,
-                    let timeEndMinute = Int(timeEndMinuteString) else {
+                    notValidAfterTimeArray.count == 2,
+                    let notValidAfterTimeHourString = notValidAfterTimeArray.first,
+                    let notValidAfterTimeHour = Int(notValidAfterTimeHourString),
+                    let notValidAfterTimeMinuteString = notValidAfterTimeArray.last,
+                    let notValidAfterTimeMinute = Int(notValidAfterTimeMinuteString) else {
                         return
                 }
-                self.timeEnd = timeEnd
-                self.timeEndHour = timeEndHour
-                self.timeEndMinute = timeEndMinute
+                self.notValidAfterTime = notValidAfterTime
+                self.notValidAfterTimeHour = notValidAfterTimeHour
+                self.notValidAfterTimeMinute = notValidAfterTimeMinute
             }
         }
     }
@@ -136,14 +138,14 @@ class Schedule {
         if let dndSchedule = dnd {
 
             var dndStartDateComponents = Calendar.current.dateComponents(componentFlags, from: futureDate)
-            dndStartDateComponents.hour = dndSchedule.timeStartHour
-            dndStartDateComponents.minute = dndSchedule.timeStartMinute
+            dndStartDateComponents.hour = dndSchedule.notValidBeforeTimeHour
+            dndStartDateComponents.minute = dndSchedule.notValidBeforeTimeMinute
             guard let dndStartDate = Calendar.current.date(from: dndStartDateComponents) else { return nil }
 
             var dndEndDateComponents = Calendar.current.dateComponents(componentFlags, from: futureDate)
-            dndEndDateComponents.hour = dndSchedule.timeEndHour
-            dndEndDateComponents.minute = dndSchedule.timeEndMinute
-            if dndSchedule.timeEndHour < dndSchedule.timeStartHour, let componentDay = dndEndDateComponents.day {
+            dndEndDateComponents.hour = dndSchedule.notValidAfterTimeHour
+            dndEndDateComponents.minute = dndSchedule.notValidAfterTimeMinute
+            if dndSchedule.notValidAfterTimeHour < dndSchedule.notValidBeforeTimeHour, let componentDay = dndEndDateComponents.day {
                 dndEndDateComponents.day = componentDay + 1
             }
             guard let dndEndDate = Calendar.current.date(from: dndEndDateComponents) else { return nil }

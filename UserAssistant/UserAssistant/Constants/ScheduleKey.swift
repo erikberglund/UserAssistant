@@ -13,21 +13,21 @@ enum ScheduleKey: String {
     /**
      **Integer**
 
-     Interval
+     Value for the interval.
      **/
     case interval = "Interval"
 
     /**
      **String**
 
-     Unit for the interval
+     Unit for the interval.
      **/
     case intervalUnit = "IntervalUnit"
 
     /**
      **Integer**
 
-     Bitmask for days to run the schedule
+     Bitmask of weekdays to run the schedule.
      **/
     case days = "Days"
 
@@ -36,13 +36,13 @@ enum ScheduleKey: String {
 
      Time Start
      **/
-    case timeStart = "TimeStart"
+    case notValidBeforeTime = "NotValidBeforeTime"
 
     /**
      **String**
 
      Time End
      **/
-    case timeEnd = "TimeEnd"
+    case notValidAfterTime = "NotValidAfterTime"
 
 }

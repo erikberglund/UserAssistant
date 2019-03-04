@@ -13,6 +13,7 @@ class MessageWindowButtonView: NSView {
     private var buttons = [NSButton]()
     private var buttonsWidth: CGFloat = 0
     private var buttonsInfo = [String: Any]()
+    private let buttonsDefault = [[ ButtonKey.title: "OK", ButtonKey.isDefault: true ]]
 
     // MARK: -
     // MARK: Intialization
@@ -35,32 +36,27 @@ class MessageWindowButtonView: NSView {
     // MARK: Button Actions
 
     @objc func buttonClicked(_ button: NSButton) {
+        guard let window = self.window as? MessageWindow else { return }
         guard let buttonIdentifier = button.identifier?.rawValue else { return }
         guard let buttonConfiguration = self.buttonsInfo[buttonIdentifier] as? [String: Any] else { return }
 
-        self.activate(buttonConfiguration: buttonConfiguration)
-
-        guard let window = self.window as? MessageWindow else { return }
+        self.activate(buttonConfiguration: buttonConfiguration, action: window.currentAction)
 
         window.close()
     }
 
-    func activate(buttonConfiguration: [String: Any]) {
-        Swift.print("buttonConfiguration: \(buttonConfiguration)")
+    func activate(buttonConfiguration: [String: Any], action: Action?) {
+
         // Link
         if
             let urlString = buttonConfiguration[ButtonKey.link] as? String,
             let url = URL(string: urlString) {
-            Swift.print("url: \(url)")
             NSWorkspace.shared.open(url)
-            return
         }
 
         // Path
         if let pathString = buttonConfiguration[ButtonKey.path] as? String {
-
             NSWorkspace.shared.openFile(pathString)
-            return
         }
 
         // Script
@@ -82,7 +78,7 @@ class MessageWindowButtonView: NSView {
         self.buttonsInfo.removeAll()
         self.buttonsWidth = 0
 
-        guard let buttonConfigurations = withButtonConfiguration else { return }
+        let buttonConfigurations = withButtonConfiguration ?? self.buttonsDefault
 
         var constraints = [NSLayoutConstraint]()
 
