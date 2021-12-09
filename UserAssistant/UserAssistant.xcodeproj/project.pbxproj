@@ -213,6 +213,7 @@
 		53D9B350216CDA7D006B86F6 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		53D9B354216CDDC2006B86F6 /* MenuItemComputerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemComputerInfo.swift; sourceTree = "<group>"; };
 		53D9B357216D50BC006B86F6 /* HardwareInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardwareInfo.swift; sourceTree = "<group>"; };
+		53DFD26C2602B12D00813999 /* CodeSignUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSignUpdate.swift; sourceTree = "<group>"; };
 		53E1E0612191AB7700C94593 /* AssetInfoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetInfoKey.swift; sourceTree = "<group>"; };
 		53E1E0632191AC0B00C94593 /* MenuItemKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemKey.swift; sourceTree = "<group>"; };
 		53E220F82175F5FC00129E15 /* ConditionFirmwarePassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionFirmwarePassword.swift; sourceTree = "<group>"; };
@@ -302,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				5370D20221183B3700FA48E0 /* UserAssistant */,
+				53FC5D0D216B5418009E9A04 /* Scripts */,
 				53FC5CEA216B51DC009E9A04 /* UserAssistantHelper */,
 				5370D20121183B3700FA48E0 /* Products */,
 			);
@@ -494,7 +496,6 @@
 				53FC5CF0216B51F1009E9A04 /* Core */,
 				53FC5CF7216B5355009E9A04 /* Helper */,
 				53FC5D09216B5400009E9A04 /* Utility */,
-				53FC5D0D216B5418009E9A04 /* Scripts */,
 			);
 			path = UserAssistantHelper;
 			sourceTree = "<group>";
@@ -532,6 +533,7 @@
 		53FC5D0D216B5418009E9A04 /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
+				53DFD26C2602B12D00813999 /* CodeSignUpdate.swift */,
 				53FC5D0E216B5428009E9A04 /* CodeSignUpdate.sh */,
 			);
 			path = Scripts;
@@ -586,7 +588,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1000;
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "Erik Berglund";
 				TargetAttributes = {
 					5370D1FF21183B3700FA48E0 = {
@@ -652,7 +654,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}\"/UserAssistantHelper/Scripts/CodeSignUpdate.sh\n";
+			shellScript = "export MAIN_BUNDLE_ID=\"com.github.erikberglund.UserAssistant\"\nexport HELPER_BUNDLE_ID=\"com.github.erikberglund.UserAssistantHelper\"\nswift \"${SRCROOT}\"/Scripts/CodeSignUpdate.swift\n";
 		};
 		53FC5D0F216B5460009E9A04 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -669,7 +671,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}\"/UserAssistantHelper/Scripts/CodeSignUpdate.sh\n";
+			shellScript = "export MAIN_BUNDLE_ID=\"com.github.erikberglund.UserAssistant\"\nexport HELPER_BUNDLE_ID=\"com.github.erikberglund.UserAssistantHelper\"\nswift \"${SRCROOT}\"/Scripts/CodeSignUpdate.swift\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -811,6 +813,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -871,6 +874,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -902,9 +906,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = GW8LFLM974;
+				DEVELOPMENT_TEAM = Y7QFC8672N;
 				INFOPLIST_FILE = "$(SRCROOT)/UserAssistant/Core/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -921,9 +926,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = GW8LFLM974;
+				DEVELOPMENT_TEAM = Y7QFC8672N;
 				INFOPLIST_FILE = "$(SRCROOT)/UserAssistant/Core/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -939,8 +945,9 @@
 		53FC5CED216B51DC009E9A04 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GW8LFLM974;
+				DEVELOPMENT_TEAM = Y7QFC8672N;
 				INFOPLIST_FILE = "$(SRCROOT)/UserAssistantHelper/Core/Helper-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -965,8 +972,9 @@
 		53FC5CEE216B51DC009E9A04 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GW8LFLM974;
+				DEVELOPMENT_TEAM = Y7QFC8672N;
 				INFOPLIST_FILE = "$(SRCROOT)/UserAssistantHelper/Core/Helper-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_FAST_MATH = YES;

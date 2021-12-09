@@ -39,14 +39,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             MenuItem.shared.showMenuItem()
         }
 
-        /* USED WHEN TESTING TO ADD REQUIRED AUTH RIGHTS
+        
         do {
             try HelperAuthorization.authorizationRightsUpdateDatabase()
             //try HelperConnection.shared.helperInstall()
         } catch {
             Swift.print("error: \(error)")
         }
-         */
+         
     }
 
     private func registerUserDefaults() {

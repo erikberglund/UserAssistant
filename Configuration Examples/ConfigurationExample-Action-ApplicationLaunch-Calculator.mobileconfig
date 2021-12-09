@@ -65,7 +65,7 @@
 							<key>BundleVersion</key>
 							<dict>
 								<key>Value</key>
-								<string>10.14</string>
+								<string>10.16</string>
 								<key>ConditionMatch</key>
 								<string>lessThanOrEqual</string>
 							</dict>
